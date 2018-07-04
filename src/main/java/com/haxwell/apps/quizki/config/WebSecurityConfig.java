@@ -54,6 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.authorizeRequests()
 	    		.antMatchers(HttpMethod.POST, "/api/users").permitAll()
 	    		// TODO: Handle login.. That should be open.
+	    		.antMatchers(HttpMethod.GET, "/api/verifyCredentials").permitAll()
+	    		.antMatchers(HttpMethod.OPTIONS, "/api/verifyCredentials").permitAll()
 	    		.antMatchers("/api/**").authenticated()
                 .and() 
                 .logout()
