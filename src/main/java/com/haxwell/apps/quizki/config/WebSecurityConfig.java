@@ -52,7 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.csrf()
             	.disable()
         	.authorizeRequests()
-	    		.antMatchers(HttpMethod.POST, "/api/users").permitAll()
+    		.antMatchers(HttpMethod.POST, "/api/users").permitAll()
+    		.antMatchers(HttpMethod.OPTIONS, "/api/verifyCredentials").permitAll()
 	    		// TODO: Handle login.. That should be open.
 	    		.antMatchers("/api/**").authenticated()
                 .and() 
