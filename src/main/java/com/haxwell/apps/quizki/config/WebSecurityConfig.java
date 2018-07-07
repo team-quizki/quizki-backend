@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     		.antMatchers(HttpMethod.POST, "/api/users").permitAll()
     		.antMatchers(HttpMethod.OPTIONS, "/api/verifyCredentials").permitAll()
 	    		// TODO: Handle login.. That should be open.
-	    		.antMatchers(HttpMethod.GET, "/api/verifyCredentials").permitAll()
+	    		.antMatchers(HttpMethod.GET, "/api/verifyCredentials").authenticated()
 	    		.antMatchers(HttpMethod.OPTIONS, "/api/verifyCredentials").permitAll()
 	    		.antMatchers("/api/**").authenticated()
                 .and() 
