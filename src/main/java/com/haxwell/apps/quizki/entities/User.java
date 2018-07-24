@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -16,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     public Long getId() {
@@ -127,7 +128,8 @@ public class User {
         setRoles(roles);
     }
 
-    public User() { 
+    //used exclusively by JPA
+    protected User() { 
     	
     }
     

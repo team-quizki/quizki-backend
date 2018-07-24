@@ -27,9 +27,9 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<User> create(@RequestBody User user){
 		
-		//TODO: add persistence
+		User savedusr = ur.save(user);
 		
-		return new ResponseEntity<User>(user, HttpStatus.CREATED);
+		return new ResponseEntity<User>(savedusr, HttpStatus.CREATED);
 	}
 
 }
