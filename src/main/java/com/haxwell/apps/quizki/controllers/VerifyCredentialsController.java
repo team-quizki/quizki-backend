@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,11 +14,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.haxwell.apps.quizki.entities.User;
 import com.haxwell.apps.quizki.repositories.UserRepository;
 
-@CrossOrigin
+//chrome preflight OPTIONS request is not handled by default in cors processor
+//https://stackoverflow.com/questions/38507370/cors-preflight-request-fails-due-to-a-standard-header
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = { "/api/verifyCredentials" })
 public class VerifyCredentialsController {
@@ -50,7 +55,7 @@ public class VerifyCredentialsController {
 	 * @return
 	 * @throws Exception
 	 */
-	@GetMapping
+	@RequestMapping(method=RequestMethod.GET)
 	public User method1(HttpServletRequest request, Model model) throws Exception {
 		String[] arr = extractAndDecodeHeader(request.getHeader("Authorization"));
 		
@@ -64,7 +69,7 @@ public class VerifyCredentialsController {
 		}
 		
 		return user != null ? user : null;
-	}
+	}	
 	
 	/**
 	 * Decodes the header into a username and password.

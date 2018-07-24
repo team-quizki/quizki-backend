@@ -62,8 +62,33 @@ public class User {
     	this.roles = set;
     }
 
+    public void setEmail(String email) {
+    	this.email = email;
+    }
+    
+    public String getEmail() {
+    	return this.email;
+    }
+    
+    public void setDemographic(String demographic) {
+    	this.demographic = demographic;
+    }
+    
+    public String getDemographic() {
+    	return this.demographic;
+    }
+    
+    public void setFullname(String fullname) {
+    	this.fullname = fullname;
+    }
+    
+    public String getFullname() {
+    	return this.fullname;
+    }
+    
+    //does this method need all the new fields if Spring is using Jackson for JSON??
     public String toString() {
-    	return id + " " + name + " " + password + " " + enabled;
+    	return id + " " + name + " " + password + " " + enabled + " " + fullname + " " + email + " " + demographic;
     }
 
 	//uni-directional many-to-many association to UserRole
@@ -81,13 +106,23 @@ public class User {
 
     @JsonIgnore
     public String password;
+    
     public String name;
     public int enabled;
-
-    public User(Set<UserRole> roles, String name, String password) {
+    public String email;
+    public String fullname;
+    public String demographic;
+    
+    
+    
+    public User(Set<UserRole> roles, String name, String password, String fullname, String email, String demographic) {
         this.name = name;
         this.password = password;
         this.enabled = 1;
+        this.fullname = fullname;
+        this.email = email;
+        this.demographic = demographic;
+        
 
         setRoles(roles);
     }
