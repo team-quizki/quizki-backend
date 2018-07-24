@@ -25,7 +25,7 @@ CREATE TABLE `user` (
   `enabled` tinyint(4) NOT NULL DEFAULT '1',
   `fullname` varchar(125) NOT NULL,
   `email` varchar(125) NOT NULL,
-  `demographic varchar(32) NOT NULL,
+  `demographic` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

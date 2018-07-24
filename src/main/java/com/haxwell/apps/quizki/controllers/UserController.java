@@ -15,7 +15,7 @@ import com.haxwell.apps.quizki.repositories.UserRepository;
 
 @CrossOrigin (origins = "http://localhost:4200")
 @RestController
-@RequestMapping ( value = {"/api/user"} )
+@RequestMapping ( value = {"/api/users"} )
 public class UserController {
 	
 	private final UserRepository ur;
