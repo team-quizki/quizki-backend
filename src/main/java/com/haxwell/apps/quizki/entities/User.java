@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.CascadeType;
 
-
+import com.haxwell.apps.quizki.entities.UserRole;
 
 
 //import com.fasterxml.jackson.annotation.JsonIgnore;

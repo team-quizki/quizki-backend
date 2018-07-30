@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 
+import com.haxwell.apps.quizki.entities.User;
+
 @Entity
 public class UserRole {
 
@@ -21,7 +23,7 @@ public class UserRole {
         return id;
     }
     
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private Set<User> users;
     
     public Set<User> getUsers(){
