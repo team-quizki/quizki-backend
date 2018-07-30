@@ -1,18 +1,35 @@
 package com.haxwell.apps.quizki.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
 
 @Entity
 public class UserRole {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {
         return id;
+    }
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<User> users;
+    
+    public Set<User> getUsers(){
+    	return users;
+    }
+    
+    public void setUsers(Set<User> users) {
+    	this.users = users;
     }
 
     public String getName() {
@@ -24,7 +41,15 @@ public class UserRole {
     }
     
     public String toString() {
-    	return id + " " + name;
+    	
+    	String result = String.format("Role[id:%d , Name:%s]%n", this.id, this.name);
+    	if(users != null) {
+    		for(User user : users) {
+    			result += String.format("User[id:%d, Name:%s]%n", user.getId(), user.getName());
+    		}
+    	}
+    	
+    	return result;
     }
 
     public String name;
