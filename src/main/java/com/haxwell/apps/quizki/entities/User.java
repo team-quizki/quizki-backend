@@ -10,6 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.CascadeType;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Email;
+
+
+
+
 import com.haxwell.apps.quizki.entities.UserRole;
 
 
@@ -98,11 +104,17 @@ public class User {
     
     //this annotation would prevent the repository from saving the POSTED User to the DB
     //@JsonIgnore
+    @NotNull
     public String password;
     
     public String name;
     public int enabled;
+    
+    @Email
+    @NotNull
     public String email;
+    
+    @NotNull
     public String fullname;
     public String demographic;
     
