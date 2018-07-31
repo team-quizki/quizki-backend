@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.CascadeType;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Email;
 
 
@@ -104,17 +104,17 @@ public class User {
     
     //this annotation would prevent the repository from saving the POSTED User to the DB
     //@JsonIgnore
-    @NotNull
+    @Min(value = 9, message = "Password must be minimum 8 characters")
     public String password;
     
     public String name;
     public int enabled;
     
     @Email
-    @NotNull
+    //@Min(value = 3, message = "Email can't be blank")
     public String email;
     
-    @NotNull
+    //@Min(value = 3, message = "Name can't be blank")
     public String fullname;
     public String demographic;
     
