@@ -22,17 +22,6 @@ public class UserRole {
     public Long getId() {
         return id;
     }
-    
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
-    private Set<User> users;
-    
-    public Set<User> getUsers(){
-    	return users;
-    }
-    
-    public void setUsers(Set<User> users) {
-    	this.users = users;
-    }
 
     public String getName() {
         return name;
@@ -45,11 +34,6 @@ public class UserRole {
     public String toString() {
     	
     	String result = String.format("Role[id:%d , Name:%s]%n", this.id, this.name);
-    	if(users != null) {
-    		for(User user : users) {
-    			result += String.format("User[id:%d, Name:%s]%n", user.getId(), user.getName());
-    		}
-    	}
     	
     	return result;
     }
@@ -60,7 +44,7 @@ public class UserRole {
         this.name = name;
     }
 
-    public UserRole() { 
+    protected UserRole() { 
     	
     }
 }

@@ -92,7 +92,7 @@ public class User {
     }
 
 	//uni-directional many-to-one association to UserRole
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(name = "user_role_id")
 	private UserRole role;
     
