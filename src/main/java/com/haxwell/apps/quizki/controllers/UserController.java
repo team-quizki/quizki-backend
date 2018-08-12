@@ -1,6 +1,7 @@
 package com.haxwell.apps.quizki.controllers;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.haxwell.apps.quizki.entities.User;
+import com.haxwell.apps.quizki.exceptions.UserFieldsNotUniqueException;
 import com.haxwell.apps.quizki.repositories.UserRepository;
 
 @CrossOrigin (origins = "http://localhost:4200")
@@ -38,7 +40,7 @@ public class UserController {
 		long emailCount = ur.countByEmail(user.getEmail());
 		
 		if (emailCount != 0 || nameCount != 0) {
-			//TODO: return an error message if not
+			throw new UserFieldsNotUniqueException(emailCount, nameCount);
 		}
 		
 		User savedusr = ur.save(user);
@@ -78,6 +80,24 @@ public class UserController {
 		
 		return new ResponseEntity<HashMap<String,String>>(fields, HttpStatus.OK) ;
 				
+	}
+	
+	@ExceptionHandler(UserFieldsNotUniqueException.class)
+	public ResponseEntity<Error> userFieldsNotUnique(UserFieldsNotUniqueException e){
+		
+		String responseMsg = "FieldsNotUnique ";
+		
+		if(e.getEmailCount() != 0)
+			responseMsg += "email ";
+		
+		if(e.getNameCount() != 0)
+			responseMsg += "name";
+
+		
+		Error error = new Error(responseMsg);
+		
+		return new ResponseEntity<Error>(error, HttpStatus.NOT_ACCEPTABLE);
+
 	}
 		
 	
