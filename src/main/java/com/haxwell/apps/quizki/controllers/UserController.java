@@ -95,6 +95,7 @@ public class UserController {
 
 		
 		Error error = new Error(responseMsg);
+		//TODO: The error contains a full stack trace which may need to be removed here perhaps with an empty trace
 		
 		return new ResponseEntity<Error>(error, HttpStatus.NOT_ACCEPTABLE);
 
