@@ -1,0 +1,803 @@
+{
+	"info": {
+		"_postman_id": "fe6f208c-c53d-4df3-b09d-79637ae15baf",
+		"name": "Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"_postman_id": "d352f6f2-03fd-4dba-a25d-3e53bc4dcf37",
+			"name": "Quizki-classic",
+			"item": [
+				{
+					"_postman_id": "7743fcbe-0e72-44c3-a8d3-1a57cefe8fcb",
+					"name": "Quizki2",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "johnathan",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/api/verifyCredentials",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"verifyCredentials"
+							]
+						},
+						"description": "Initial basic authorization"
+					},
+					"response": []
+				},
+				{
+					"_postman_id": "83c1914d-2cd3-408b-b384-89b5a377bce7",
+					"name": "Quizki Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "jonathan",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/LoginServlet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"LoginServlet"
+							]
+						},
+						"description": "sends username and password to login.jsp"
+					},
+					"response": []
+				},
+				{
+					"_postman_id": "e0d43682-65d5-4870-a012-90af604f7c37",
+					"name": "http://localhost:8080//ajax/getSingleQuestion.jsp",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "entityIdFilter",
+									"value": "459",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080//ajax/getSingleQuestion.jsp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"",
+								"ajax",
+								"getSingleQuestion.jsp"
+							]
+						},
+						"description": "enter the question ID in the vale field of the form data"
+					},
+					"response": [
+						{
+							"id": "50eca3d8-133b-416f-8dfd-9d472d013cf5",
+							"name": "http://localhost:8080//ajax/getSingleQuestion.jsp",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"disabled": false
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "entityIdFilter",
+											"value": "11",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080//ajax/getSingleQuestion.jsp",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"",
+										"ajax",
+										"getSingleQuestion.jsp"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, must-revalidate",
+									"name": "Cache-Control",
+									"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1056",
+									"name": "Content-Length",
+									"description": "The length of the response body in octets (8-bit bytes)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html;charset=UTF-8",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 30 May 2018 01:05:39 GMT",
+									"name": "Date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "Expires",
+									"value": "Thu, 01 Jan 1970 00:00:00 GMT",
+									"name": "Expires",
+									"description": "Gives the date/time after which the response is considered stale"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache",
+									"name": "Pragma",
+									"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Mon Jan 18 2038 20:14:07 GMT-0700 (MST)",
+									"httpOnly": true,
+									"domain": "localhost",
+									"path": "/",
+									"secure": false,
+									"value": "ACE69838FFAB56A46EDAAAB951EEBF29",
+									"key": "JSESSIONID"
+								}
+							],
+							"body": "{ \"selectedEntityIDsAsCSV\": \"\", \"addlItemCount\":\"-1\", \"addlInfoCode\":\"-1\" , \"question\": [{\"references\":[],\"type_id\":\"1\",\"type_text\":\"Single\",\"topics\":[{\"text\":\"trading\",\"id\":10},{\"text\":\"options\",\"id\":12},{\"text\":\"commodities\",\"id\":11}],\"user_name\":\"johnathan\",\"description\":\"\",\"textWithoutHTML\":\"A&nbsp;listed option is a put or call that an exchange has authorized for trading.\",\"difficulty_id\":\"1\",\"difficulty_text\":\"Junior\",\"entityStatus\":0,\"user_id\":\"1\",\"dynamicDataFieldNames\":[],\"id\":\"11\",\"text\":\"<p>A&nbsp;<strong>listed option<\\/strong> is a put or call that an exchange has authorized for trading.<\\/p>\",\"choices\":[{\"sequence\":\"0\",\"iscorrect\":\"true\",\"id\":\"28\",\"text\":\"True\"},{\"sequence\":\"0\",\"iscorrect\":\"false\",\"id\":\"27\",\"text\":\"False\"}]}] }\n         <!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"> \n    <html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"><head><meta content=\"text/html; charset=UTF-8\" http-equiv=\"Content-Type\"/></head><body></body></html>"
+						}
+					]
+				}
+			]
+		},
+		{
+			"_postman_id": "f927fee1-5fc0-4e4f-b8b5-7d0d6fb81fd3",
+			"name": "setUser",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"mypassword\",\n\t\"name\":\"jdisser\",\n\t\"enabled\":\"1\",\n\t\"role\":{\"id\":\"1\",\"name\": \"QUIZKI_USER_ROLE_ADMIN\"},\n\t\"email\":\"jdisser@somewhere.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"Jim Disser\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "POST a new User to /api/user"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "c4ccde1f-1684-4502-8023-95ed8c6b7058",
+			"name": "setUser2",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"password\",\n\t\"name\":\"rhighland\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"1\",\"name\": \"QUIZKI_USER_ROLE_ADMIN\"},\n\t\"email\":\"rhighland@somewhere.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"Richard Highland\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "POST a new User to /api/user"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "791f0b50-e002-4dfb-b4a8-6bc5e325f015",
+			"name": "setUser3",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"encryptedpassword\",\n\t\"name\":\"aMeadow\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"2\",\"name\": \"QUIZKI_USER_ROLE_USER\"},\n\t\"email\":\"ameadow@somewhere.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"Anthony Meadow\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "POST a new User to /api/user"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "9a81f370-44d0-4306-97ec-7636547a9784",
+			"name": "setUserNewRole",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"encryptedpassword\",\n\t\"name\":\"jdoe\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"3\",\"name\": \"QUIZKI_USER_ROLE_NEWROLE\"},\n\t\"email\":\"jdoe@somewhere.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"John Doe\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "POST a new User to /api/user"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "2d90efaf-53f2-4240-b288-d4fc67c17e53",
+			"name": "badEmail",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"encryptedpassword\",\n\t\"name\":\"larry\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"2\",\"name\": \"QUIZKI_USER_ROLE_USER\"},\n\t\"email\":\"larry.stooges.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"Larry Stooge\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "POST a new User to /api/user"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "719b0a4f-28d1-465c-a31e-6690789d9c4c",
+			"name": "nullName",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"hgjhfghfgh\",\n\t\"name\":\"\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"2\",\"name\": \"QUIZKI_USER_ROLE_USER\"},\n\t\"email\":\"larry@stooges.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "POST a new User to /api/user"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "b08a4ae7-52c4-4133-9903-80a8e15c1b76",
+			"name": "nullEmail",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"encryptedpassword\",\n\t\"name\":\"Larry\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"2\",\"name\": \"QUIZKI_USER_ROLE_USER\"},\n\t\"email\":\"\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"Larry Stooge\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "POST a new User to /api/user"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "264abd86-54bf-4e6a-b2f8-57f5deac2011",
+			"name": "nullPassword",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"\",\n\t\"name\":\"Larry\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"2\",\"name\": \"QUIZKI_USER_ROLE_USER\"},\n\t\"email\":\"larry@stooges.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"Larry Stooge\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "POST a new User to /api/user"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "703521c6-b884-4aae-b287-6dbbfc2572a9",
+			"name": "check unique email and user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Larry\",\n\t\"email\":\"larry@stooges.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users/isunique",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"isunique"
+					]
+				},
+				"description": "check for unique email and user"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "2d021c98-5b79-4939-9bc0-5f8161b7a0c6",
+			"name": "check NOT unique email and user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"jdisser\",\n\t\"email\":\"jdisser@somewhere.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users/isunique",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"isunique"
+					]
+				},
+				"description": "check for unique email and user"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "a4bafaa9-50a9-4e1f-a96e-48024bcea9e3",
+			"name": "check NOT unique user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"jdisser\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users/isunique",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"isunique"
+					]
+				},
+				"description": "check for unique user"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "12e3740f-ad05-4c6b-8646-616c3609393c",
+			"name": "check NOT unique email",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"jdisser@somewhere.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users/isunique",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"isunique"
+					]
+				},
+				"description": "check for unique email"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "bea724bc-e886-493c-9624-a4c0f2a890c6",
+			"name": "Set User with duplicate name",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"encryptedpassword\",\n\t\"name\":\"aMeadow\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"2\",\"name\": \"QUIZKI_USER_ROLE_USER\"},\n\t\"email\":\"anotherameadow@somewhere.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"Anthony Meadows\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "POST a new User to /api/user with a non unique name (username)"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "e8802e4e-bf56-406c-984e-874e89d08aa8",
+			"name": "Set User with duplicate email",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"encryptedpassword\",\n\t\"name\":\"aMeadows\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"2\",\"name\": \"QUIZKI_USER_ROLE_USER\"},\n\t\"email\":\"ameadow@somewhere.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"Anthony Meadows\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "POST a new User to /api/user with a non unique email"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "d4830f3b-dc96-454c-ab6e-7a2cc40d637d",
+			"name": "Set User with duplicate email and name",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"encryptedpassword\",\n\t\"name\":\"aMeadow\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"2\",\"name\": \"QUIZKI_USER_ROLE_USER\"},\n\t\"email\":\"ameadow@somewhere.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"Anthony Meadows\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "POST a new User to /api/user with a non unique email and name (username)"
+			},
+			"response": []
+		}
+	]
+}
