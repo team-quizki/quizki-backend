@@ -49,7 +49,7 @@ public class UserController {
 	}
 	
 	@PostMapping(
-			value = "/isunique",
+			value = "/isUnique",
 			consumes = "application/json")
 	public ResponseEntity<HashMap<String,String>> isUnique(@RequestBody HashMap<String,String> fields){
 		
