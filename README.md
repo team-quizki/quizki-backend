@@ -1,4 +1,4 @@
-# quizki-backend
+# Quizki Backend
 
 Quizki is a question and answer database which generates exams. This is the backend of the project. For the frontend go to [team-quizki/quizki-frontend](https://github.com/team-quizki/quizki-frontend).
 
