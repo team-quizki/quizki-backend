@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 
 import com.haxwell.apps.quizki.entities.User;
 import com.haxwell.apps.quizki.exceptions.UserFieldsNotUniqueException;
@@ -33,7 +36,11 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<User> create(@RequestBody User user){
+	public ResponseEntity<User> create(@RequestBody @Valid User user, BindingResult result){
+		
+		if(result.hasErrors()) {
+			//TODO: error handling code goes here...
+		}
 		
 		
 		long nameCount = ur.countByName(user.getName());
