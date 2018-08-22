@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
@@ -36,12 +37,8 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<User> create(@RequestBody @Valid User user, BindingResult result){
-		
-		if(result.hasErrors()) {
-			//TODO: error handling code goes here...
-		}
-		
+	@ResponseBody
+	public User create(@RequestBody @Valid User user){
 		
 		long nameCount = ur.countByName(user.getName());
 		long emailCount = ur.countByEmail(user.getEmail());
@@ -52,7 +49,7 @@ public class UserController {
 		
 		User savedusr = ur.save(user);
 		
-		return new ResponseEntity<User>(savedusr, HttpStatus.CREATED);
+		return savedusr;
 	}
 	
 	@PostMapping(
