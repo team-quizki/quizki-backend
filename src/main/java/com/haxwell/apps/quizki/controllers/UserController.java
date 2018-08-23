@@ -22,6 +22,7 @@ import org.springframework.validation.BindingResult;
 
 import com.haxwell.apps.quizki.entities.User;
 import com.haxwell.apps.quizki.exceptions.UserFieldsNotUniqueException;
+import com.haxwell.apps.quizki.exceptions.ValidationErrorData;
 import com.haxwell.apps.quizki.repositories.UserRepository;
 
 @CrossOrigin (origins = "http://localhost:4200")
@@ -44,7 +45,14 @@ public class UserController {
 		long emailCount = ur.countByEmail(user.getEmail());
 		
 		if (emailCount != 0 || nameCount != 0) {
-			throw new UserFieldsNotUniqueException(emailCount, nameCount);
+			ValidationErrorData data = new ValidationErrorData();
+			if(emailCount != 0)
+				data.addFieldError("email", "email.not.unique");
+			if(nameCount != 0)
+				data.addFieldError("name", "name.not.unique");
+			
+			
+			throw new UserFieldsNotUniqueException(data);
 		}
 		
 		User savedusr = ur.save(user);
@@ -85,7 +93,7 @@ public class UserController {
 		return new ResponseEntity<HashMap<String,String>>(fields, HttpStatus.OK) ;
 				
 	}
-	
+	/*
 	@ExceptionHandler(UserFieldsNotUniqueException.class)
 	public ResponseEntity<Error> userFieldsNotUnique(UserFieldsNotUniqueException e){
 		
@@ -104,7 +112,7 @@ public class UserController {
 		return new ResponseEntity<Error>(error, HttpStatus.NOT_ACCEPTABLE);
 
 	}
-		
+	*/	
 	
 
 }

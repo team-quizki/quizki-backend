@@ -56,5 +56,12 @@ public class RestErrorHandler {
 		
 		return localErrMsg;
 	}
+	
+	@ExceptionHandler(UserFieldsNotUniqueException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public ValidationErrorData processIsUniqueException(UserFieldsNotUniqueException ex) {
+		return ex.getData();
+	}
 
 }
