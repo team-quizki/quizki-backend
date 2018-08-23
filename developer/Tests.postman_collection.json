@@ -6,11 +6,11 @@
 	},
 	"item": [
 		{
-			"_postman_id": "d352f6f2-03fd-4dba-a25d-3e53bc4dcf37",
+			"_postman_id": "bc8f4d41-bb00-4c57-9924-07401d7786fd",
 			"name": "Quizki-classic",
 			"item": [
 				{
-					"_postman_id": "7743fcbe-0e72-44c3-a8d3-1a57cefe8fcb",
+					"_postman_id": "fa2196d8-281e-462f-b355-7a9d8e8f9314",
 					"name": "Quizki2",
 					"request": {
 						"auth": {
@@ -48,7 +48,7 @@
 					"response": []
 				},
 				{
-					"_postman_id": "83c1914d-2cd3-408b-b384-89b5a377bce7",
+					"_postman_id": "89c1572e-d21f-4c4a-95ce-544db7d91c60",
 					"name": "Quizki Login",
 					"request": {
 						"auth": {
@@ -92,7 +92,7 @@
 					"response": []
 				},
 				{
-					"_postman_id": "e0d43682-65d5-4870-a012-90af604f7c37",
+					"_postman_id": "386542e8-1dec-4092-8db1-c6889fe1c0fa",
 					"name": "http://localhost:8080//ajax/getSingleQuestion.jsp",
 					"request": {
 						"auth": {
@@ -132,7 +132,7 @@
 					},
 					"response": [
 						{
-							"id": "50eca3d8-133b-416f-8dfd-9d472d013cf5",
+							"id": "08caf2a0-93cf-4066-8872-9bb544246b01",
 							"name": "http://localhost:8080//ajax/getSingleQuestion.jsp",
 							"originalRequest": {
 								"method": "POST",
@@ -226,7 +226,7 @@
 			]
 		},
 		{
-			"_postman_id": "f927fee1-5fc0-4e4f-b8b5-7d0d6fb81fd3",
+			"_postman_id": "fc1f824c-eb30-4c0e-a943-89fad5c7fd6d",
 			"name": "setUser",
 			"request": {
 				"auth": {
@@ -264,7 +264,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "c4ccde1f-1684-4502-8023-95ed8c6b7058",
+			"_postman_id": "ee3dc016-b92b-41d4-8f35-7b20f03e87bb",
 			"name": "setUser2",
 			"request": {
 				"auth": {
@@ -302,7 +302,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "791f0b50-e002-4dfb-b4a8-6bc5e325f015",
+			"_postman_id": "a421ab13-d3c4-4f19-aea4-710ee17bbece",
 			"name": "setUser3",
 			"request": {
 				"auth": {
@@ -340,7 +340,45 @@
 			"response": []
 		},
 		{
-			"_postman_id": "9a81f370-44d0-4306-97ec-7636547a9784",
+			"_postman_id": "de3097d7-6ea2-4846-aeb5-23e0c3d7097e",
+			"name": "setUser4",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"encryptedpassword\",\n\t\"name\":\"curly\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"2\",\"name\": \"QUIZKI_USER_ROLE_USER\"},\n\t\"email\":\"curly@somewhere.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"Curly A Stooge III\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "POST a new User to /api/user"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "0fbf8d2a-cb28-4939-9ecb-95db0bc8a540",
 			"name": "setUserNewRole",
 			"request": {
 				"auth": {
@@ -378,7 +416,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "2d90efaf-53f2-4240-b288-d4fc67c17e53",
+			"_postman_id": "1a8f6033-5f40-4b4e-855d-d58df7ebfb91",
 			"name": "badEmail",
 			"request": {
 				"auth": {
@@ -416,7 +454,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "719b0a4f-28d1-465c-a31e-6690789d9c4c",
+			"_postman_id": "ee296bfc-94c7-481d-a74b-7d8e30f14b13",
 			"name": "nullName",
 			"request": {
 				"auth": {
@@ -435,7 +473,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"hgjhfghfgh\",\n\t\"name\":\"\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"2\",\"name\": \"QUIZKI_USER_ROLE_USER\"},\n\t\"email\":\"larry@stooges.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"\"\n}"
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"hgjhfghfgh\",\n\t\"name\":\"\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"2\",\"name\": \"QUIZKI_USER_ROLE_USER\"},\n\t\"email\":\"larry@stooges.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"Larry Stooge\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/users",
@@ -454,7 +492,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "b08a4ae7-52c4-4133-9903-80a8e15c1b76",
+			"_postman_id": "747f829f-1c30-4bd2-82f0-66a440bebc1c",
 			"name": "nullEmail",
 			"request": {
 				"auth": {
@@ -492,7 +530,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "264abd86-54bf-4e6a-b2f8-57f5deac2011",
+			"_postman_id": "016c1854-80b1-4ef2-94ac-fad2e2e8b7fc",
 			"name": "nullPassword",
 			"request": {
 				"auth": {
@@ -530,7 +568,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "703521c6-b884-4aae-b287-6dbbfc2572a9",
+			"_postman_id": "28c104ec-6e4d-4956-b7e6-1ea91a98450a",
 			"name": "check unique email and user",
 			"request": {
 				"auth": {
@@ -569,7 +607,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "2d021c98-5b79-4939-9bc0-5f8161b7a0c6",
+			"_postman_id": "94b5bf3e-819e-415f-b9a1-16d34e752ab8",
 			"name": "check NOT unique email and user",
 			"request": {
 				"auth": {
@@ -608,7 +646,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "a4bafaa9-50a9-4e1f-a96e-48024bcea9e3",
+			"_postman_id": "54077980-3038-4985-b2d8-24b6fdaef163",
 			"name": "check NOT unique user",
 			"request": {
 				"auth": {
@@ -647,7 +685,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "12e3740f-ad05-4c6b-8646-616c3609393c",
+			"_postman_id": "e2317fb2-1b2c-404c-8a03-1bb518781387",
 			"name": "check NOT unique email",
 			"request": {
 				"auth": {
@@ -686,7 +724,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "bea724bc-e886-493c-9624-a4c0f2a890c6",
+			"_postman_id": "d35b71a2-b725-4ed5-a586-738a4949d7aa",
 			"name": "Set User with duplicate name",
 			"request": {
 				"auth": {
@@ -724,7 +762,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "e8802e4e-bf56-406c-984e-874e89d08aa8",
+			"_postman_id": "151887ed-3f1e-4fac-a7b1-ecca0b813a93",
 			"name": "Set User with duplicate email",
 			"request": {
 				"auth": {
@@ -762,7 +800,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "d4830f3b-dc96-454c-ab6e-7a2cc40d637d",
+			"_postman_id": "2d04d4df-79c9-4c43-b6ef-46fd66d8a5cd",
 			"name": "Set User with duplicate email and name",
 			"request": {
 				"auth": {
@@ -796,6 +834,44 @@
 					]
 				},
 				"description": "POST a new User to /api/user with a non unique email and name (username)"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "9011cf8a-9873-4884-8e84-113e6fb877c2",
+			"name": "null password-name-demographic-badEmail",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"\",\n\t\"name\":\"\",\n\t\"enabled\":1,\n\t\"role\":{\"id\":\"2\",\"name\": \"QUIZKI_USER_ROLE_USER\"},\n\t\"email\":\"larrystooges.com\",\n\t\"demographic\":\"\",\n\t\"fullname\":\"Larry Stooge\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "Test multiple validation errors"
 			},
 			"response": []
 		}

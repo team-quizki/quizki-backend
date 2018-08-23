@@ -63,5 +63,12 @@ public class RestErrorHandler {
 	public ValidationErrorData processIsUniqueException(UserFieldsNotUniqueException ex) {
 		return ex.getData();
 	}
+	
+	@ExceptionHandler(UserRoleNotInDatabaseException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public ValidationErrorData processRoleNotInDatabaseException(UserRoleNotInDatabaseException ex) {
+		return ex.getData();
+	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -21,9 +22,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 
 import com.haxwell.apps.quizki.entities.User;
+import com.haxwell.apps.quizki.entities.UserRole;
 import com.haxwell.apps.quizki.exceptions.UserFieldsNotUniqueException;
+import com.haxwell.apps.quizki.exceptions.UserRoleNotInDatabaseException;
 import com.haxwell.apps.quizki.exceptions.ValidationErrorData;
 import com.haxwell.apps.quizki.repositories.UserRepository;
+import com.haxwell.apps.quizki.repositories.UserRoleRepository;
 
 @CrossOrigin (origins = "http://localhost:4200")
 @RestController
@@ -31,10 +35,14 @@ import com.haxwell.apps.quizki.repositories.UserRepository;
 public class UserController {
 	
 	private final UserRepository ur;
+	private final UserRoleRepository uroler;
+	
+	private Optional<UserRole> urole;
 	
 	@Autowired
-	UserController(UserRepository ur){
+	UserController(UserRepository ur, UserRoleRepository uroler){
 		this.ur = ur;
+		this.uroler = uroler;
 	}
 	
 	@PostMapping
@@ -53,6 +61,15 @@ public class UserController {
 			
 			
 			throw new UserFieldsNotUniqueException(data);
+		}
+		
+		long role_id = user.getRole().getId();
+		urole = uroler.findById(role_id);
+		
+		if(!urole.isPresent()) {
+			ValidationErrorData data = new ValidationErrorData();
+			data.addFieldError("role", "role.not.in.database");
+			throw new UserRoleNotInDatabaseException(data);
 		}
 		
 		User savedusr = ur.save(user);
@@ -93,26 +110,7 @@ public class UserController {
 		return new ResponseEntity<HashMap<String,String>>(fields, HttpStatus.OK) ;
 				
 	}
-	/*
-	@ExceptionHandler(UserFieldsNotUniqueException.class)
-	public ResponseEntity<Error> userFieldsNotUnique(UserFieldsNotUniqueException e){
 		
-		String responseMsg = "FieldsNotUnique ";
-		
-		if(e.getEmailCount() != 0)
-			responseMsg += "email ";
-		
-		if(e.getNameCount() != 0)
-			responseMsg += "name";
-
-		
-		Error error = new Error(responseMsg);
-		//TODO: The error contains a full stack trace which may need to be removed here perhaps with an empty trace
-		
-		return new ResponseEntity<Error>(error, HttpStatus.NOT_ACCEPTABLE);
-
-	}
-	*/	
 	
 
 }
