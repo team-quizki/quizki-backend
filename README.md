@@ -41,7 +41,7 @@ You can check that it is working by entering the database. `$ mysql -u quizki2 -
 ## Development Server
 To get the backend running on your local machine, you will need a MySQL daemon running and you will need to compile and run the application. Follow these steps each time you want to run the backend.
   1. Run a MySQL daemon in the background. `$ mysqld`
-  2. Compile and run the application by using the Spring Boot Maven plugin. `$ mvn sping-boot:run`
+  2. Compile and run the application by using the Spring Boot Maven plugin. `$ mvn spring-boot:run`
 
 ## Running the Tests
 
@@ -74,7 +74,7 @@ This project is in alpha version.
 * Deborah
 * Jeremiah
 * Nabil
-* 
+*
 
 ## License
 
