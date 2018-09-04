@@ -1,14 +1,22 @@
 package com.haxwell.apps.quizki.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+
+import com.haxwell.apps.quizki.entities.User;
 
 @Entity
 public class UserRole {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {
@@ -24,7 +32,10 @@ public class UserRole {
     }
     
     public String toString() {
-    	return id + " " + name;
+    	
+    	String result = String.format("Role[id:%d , Name:%s]%n", this.id, this.name);
+    	
+    	return result;
     }
 
     public String name;
@@ -33,7 +44,7 @@ public class UserRole {
         this.name = name;
     }
 
-    public UserRole() { 
+    protected UserRole() { 
     	
     }
 }
