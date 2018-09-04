@@ -87,6 +87,55 @@ LOCK TABLES `user_user_role_map` WRITE;
 INSERT INTO `user_user_role_map` VALUES (1,1);
 /*!40000 ALTER TABLE `user_user_role_map` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `topic`
+--
+
+DROP TABLE IF EXISTS `topic`;
+/*!40101 SET @saved_cs_client    = @@character_set_client */;
+/*!40101 SET character_set_client = uft8 */;
+CREATE TABLE `topic` (
+  `id` bigint(20) NOT NULL,
+  `text` varchar(125),
+  PRIMARY KEY(`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `topic`
+--
+
+LOCK TABLES `topic` WRITE;
+/*!40000 ALTER TABLE `topic` DISABLE KEYS */;
+INSERT INTO `topic` VALUES (1, 'biology');
+/*40000 ALTER TABLE `topic` ENABLE KEYST */;
+ULOCK TABLES;
+
+--
+-- Table structure for table `reference`
+--
+
+DROP TABLE IF EXISTS `reference`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reference` (
+  `id` bigint(20) NOT NULL,
+  `text` varchar(125),
+  PRIMARY KEY(`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reference`
+--
+
+LOCK TABLES `reference`;
+/*!40000 ALTER TABLE `reference` DISABLE KEYS */;
+INSERT INTO `reference` VALUES (1, 'https://en.wikipedia.org/wiki/Biology');
+/*40000 ALTER TABLE `reference` ENABLE KEYST */;
+ULOCK TABLES;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
