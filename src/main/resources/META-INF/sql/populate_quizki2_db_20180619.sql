@@ -67,7 +67,53 @@ INSERT INTO `user` VALUES (1,'johnathan','$2a$04$mtm6rLmZW/EnZ5NLNsX3eew1zD.2Ye5
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `topic`
+--
 
+DROP TABLE IF EXISTS `topic`;
+/*!40101 SET @saved_cs_client    = @@character_set_client */;
+/*!40101 SET character_set_client = uft8 */;
+CREATE TABLE `topic` (
+  `id` bigint(20) NOT NULL,
+  `text` varchar(125),
+  PRIMARY KEY(`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `topic`
+--
+
+LOCK TABLES `topic` WRITE;
+/*!40000 ALTER TABLE `topic` DISABLE KEYS */;
+INSERT INTO `topic` VALUES (1, 'biology');
+/*40000 ALTER TABLE `topic` ENABLE KEYST */;
+ULOCK TABLES;
+
+--
+-- Table structure for table `reference`
+--
+
+DROP TABLE IF EXISTS `reference`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reference` (
+  `id` bigint(20) NOT NULL,
+  `text` varchar(125),
+  PRIMARY KEY(`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reference`
+--
+
+LOCK TABLES `reference`;
+/*!40000 ALTER TABLE `reference` DISABLE KEYS */;
+INSERT INTO `reference` VALUES (1, 'https://en.wikipedia.org/wiki/Biology');
+/*40000 ALTER TABLE `reference` ENABLE KEYST */;
+ULOCK TABLES;
 
 --
 -- remove `user_user_role_map` from previous version
