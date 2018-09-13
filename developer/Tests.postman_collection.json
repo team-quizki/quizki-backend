@@ -6,11 +6,9 @@
 	},
 	"item": [
 		{
-			"_postman_id": "bc8f4d41-bb00-4c57-9924-07401d7786fd",
 			"name": "Quizki-classic",
 			"item": [
 				{
-					"_postman_id": "fa2196d8-281e-462f-b355-7a9d8e8f9314",
 					"name": "Quizki2",
 					"request": {
 						"auth": {
@@ -48,7 +46,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "89c1572e-d21f-4c4a-95ce-544db7d91c60",
 					"name": "Quizki Login",
 					"request": {
 						"auth": {
@@ -92,7 +89,6 @@
 					"response": []
 				},
 				{
-					"_postman_id": "386542e8-1dec-4092-8db1-c6889fe1c0fa",
 					"name": "http://localhost:8080//ajax/getSingleQuestion.jsp",
 					"request": {
 						"auth": {
@@ -132,7 +128,6 @@
 					},
 					"response": [
 						{
-							"id": "08caf2a0-93cf-4066-8872-9bb544246b01",
 							"name": "http://localhost:8080//ajax/getSingleQuestion.jsp",
 							"originalRequest": {
 								"method": "POST",
@@ -226,7 +221,6 @@
 			]
 		},
 		{
-			"_postman_id": "fc1f824c-eb30-4c0e-a943-89fad5c7fd6d",
 			"name": "setUser",
 			"request": {
 				"auth": {
@@ -264,7 +258,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "ee3dc016-b92b-41d4-8f35-7b20f03e87bb",
 			"name": "setUser2",
 			"request": {
 				"auth": {
@@ -302,7 +295,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "a421ab13-d3c4-4f19-aea4-710ee17bbece",
 			"name": "setUser3",
 			"request": {
 				"auth": {
@@ -340,7 +332,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "de3097d7-6ea2-4846-aeb5-23e0c3d7097e",
 			"name": "setUser4",
 			"request": {
 				"auth": {
@@ -378,7 +369,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "0fbf8d2a-cb28-4939-9ecb-95db0bc8a540",
 			"name": "setUserNewRole",
 			"request": {
 				"auth": {
@@ -416,7 +406,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "1a8f6033-5f40-4b4e-855d-d58df7ebfb91",
 			"name": "badEmail",
 			"request": {
 				"auth": {
@@ -454,7 +443,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "ee296bfc-94c7-481d-a74b-7d8e30f14b13",
 			"name": "nullName",
 			"request": {
 				"auth": {
@@ -492,7 +480,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "747f829f-1c30-4bd2-82f0-66a440bebc1c",
 			"name": "nullEmail",
 			"request": {
 				"auth": {
@@ -530,7 +517,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "016c1854-80b1-4ef2-94ac-fad2e2e8b7fc",
 			"name": "nullPassword",
 			"request": {
 				"auth": {
@@ -568,7 +554,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "28c104ec-6e4d-4956-b7e6-1ea91a98450a",
 			"name": "check unique email and user",
 			"request": {
 				"auth": {
@@ -607,7 +592,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "94b5bf3e-819e-415f-b9a1-16d34e752ab8",
 			"name": "check NOT unique email and user",
 			"request": {
 				"auth": {
@@ -646,7 +630,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "54077980-3038-4985-b2d8-24b6fdaef163",
 			"name": "check NOT unique user",
 			"request": {
 				"auth": {
@@ -685,7 +668,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "e2317fb2-1b2c-404c-8a03-1bb518781387",
 			"name": "check NOT unique email",
 			"request": {
 				"auth": {
@@ -724,7 +706,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "d35b71a2-b725-4ed5-a586-738a4949d7aa",
 			"name": "Set User with duplicate name",
 			"request": {
 				"auth": {
@@ -762,7 +743,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "151887ed-3f1e-4fac-a7b1-ecca0b813a93",
 			"name": "Set User with duplicate email",
 			"request": {
 				"auth": {
@@ -800,7 +780,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "2d04d4df-79c9-4c43-b6ef-46fd66d8a5cd",
 			"name": "Set User with duplicate email and name",
 			"request": {
 				"auth": {
@@ -838,7 +817,6 @@
 			"response": []
 		},
 		{
-			"_postman_id": "9011cf8a-9873-4884-8e84-113e6fb877c2",
 			"name": "null password-name-demographic-badEmail",
 			"request": {
 				"auth": {
@@ -872,6 +850,43 @@
 					]
 				},
 				"description": "Test multiple validation errors"
+			},
+			"response": []
+		},
+		{
+			"name": "getRoles",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"mypassword\",\n\t\"name\":\"jdisser\",\n\t\"enabled\":\"1\",\n\t\"role\":{\"id\":\"1\",\"name\": \"QUIZKI_USER_ROLE_ADMIN\"},\n\t\"email\":\"jdisser@somewhere.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"Jim Disser\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/roles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"roles"
+					]
+				},
+				"description": "GET /api/roles returns an array of the current roles in the system"
 			},
 			"response": []
 		}
