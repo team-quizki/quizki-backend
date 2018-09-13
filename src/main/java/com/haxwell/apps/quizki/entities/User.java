@@ -1,22 +1,32 @@
 package com.haxwell.apps.quizki.entities;
 
-import java.util.HashSet;
-import java.util.Set;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.CascadeType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Email;
+
+
+
+
+import com.haxwell.apps.quizki.entities.UserRole;
+
+
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {
@@ -51,48 +61,80 @@ public class User {
     	this.enabled = i;
     }
     
-    public Set<UserRole> getRoles() {
-    	if (this.roles == null) {
-    		this.roles = new HashSet<UserRole>();
-    	}
-    	return this.roles;
+    public UserRole getRole() {
+    	return this.role;
     }
 
-    public void setRoles(Set<UserRole> set) {
-    	this.roles = set;
+    public void setRole(UserRole role) {
+    	this.role = role;
     }
 
+    public void setEmail(String email) {
+    	this.email = email;
+    }
+    
+    public String getEmail() {
+    	return this.email;
+    }
+    
+    public void setDemographic(String demographic) {
+    	this.demographic = demographic;
+    }
+    
+    public String getDemographic() {
+    	return this.demographic;
+    }
+    
+    public void setFullname(String fullname) {
+    	this.fullname = fullname;
+    }
+    
+    public String getFullname() {
+    	return this.fullname;
+    }
+    
+    //does this method need all the new fields if Spring is using Jackson for JSON??
     public String toString() {
-    	return id + " " + name + " " + password + " " + enabled;
+    	return id + " " + name + " " + password + " " + enabled + " " + fullname + " " + email + " " + demographic;
     }
 
-	//uni-directional many-to-many association to UserRole
-    @ManyToMany
-	@JoinTable(
-		name="userUserRoleMap"
-		, joinColumns={
-			@JoinColumn(name="userId")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="userRoleId")
-			}
-		)
-	private Set<UserRole> roles;
-
-    @JsonIgnore
+	//uni-directional many-to-one association to UserRole
+    @ManyToOne
+    @JoinColumn(name = "user_role_id")
+	private UserRole role;
+    
+    //this annotation would prevent the repository from saving the POSTED User to the DB
+    //@JsonIgnore
+    @NotBlank(message = "Password must be minimum 8 characters")
     public String password;
+    
+    @NotBlank
     public String name;
     public int enabled;
-
-    public User(Set<UserRole> roles, String name, String password) {
+    
+    @Email
+    @NotBlank(message = "Email can't be blank")
+    public String email;
+    
+    @NotBlank(message = "Name can't be blank")
+    public String fullname;
+    public String demographic;
+    
+    
+    
+    public User(UserRole role, String name, String password, String fullname, String email, String demographic) {
         this.name = name;
         this.password = password;
         this.enabled = 1;
-
-        setRoles(roles);
+        this.fullname = fullname;
+        this.email = email;
+        this.demographic = demographic;
+        this.role = role;
+        
     }
 
-    public User() { 
+    //used exclusively by JPA
+    protected User() { 
     	
     }
     
