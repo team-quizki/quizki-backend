@@ -1,11 +1,24 @@
 package com.haxwell.apps.quizki.dtos;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 public class UserCreateDTO {
 	
+	@NotBlank
 	private String name;
+	
+	@Email
+	@NotBlank
 	private String email;
+	
+	@NotBlank
 	private String password;
+	
+	@NotBlank
 	private String fullname;
+	
+	@NotBlank
 	private long roleId;
 	
 	public String getName() {
