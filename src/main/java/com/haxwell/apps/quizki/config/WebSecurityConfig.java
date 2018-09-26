@@ -32,10 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			"select name,password,enabled from user where name=?")
 		.authoritiesByUsernameQuery(
 			"select u.name, ur.name "
-			+ "from user u, user_role ur, user_user_role_map urMap "
+			+ "from user u, user_role ur "
 			+ "where u.name=? "
-			+ "and u.id = urMap.user_id "
-			+ "and ur.id = urMap.user_role_id"
+			+ "and u.user_role_id = ur.id"
 			)
 		.passwordEncoder(passwordEncoder());
 	}
