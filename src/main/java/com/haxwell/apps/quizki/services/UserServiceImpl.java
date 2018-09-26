@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +25,12 @@ public class UserServiceImpl implements UserService {
 	private UserRepository uRepo;
 	@Autowired
 	private UserRoleRepository uroleRepo;
-	@Autowired
-	private ModelMapper mm;
 	
-	public UserServiceImpl(UserRepository uRepo, UserRoleRepository uroleRepo, ModelMapper mm) {
+	
+	public UserServiceImpl(UserRepository uRepo, UserRoleRepository uroleRepo) {
 //		super();
 		this.uRepo = uRepo;
 		this.uroleRepo = uroleRepo;
-		this.mm = mm;
 	}
 	
 	
@@ -61,12 +59,12 @@ public class UserServiceImpl implements UserService {
 			throw new UserRoleNotInDatabaseException(data);
 		}
 		
-		//Create a new User instance and use mapper to populate it from the ucdto here
+		//Create a new User instance and map it from the ucdto here
 		
 		
 		User savedusr = uRepo.save(user);
 		
-		//then create an instance of CreatedUserDTO and use the mapper to populate it from the savedusr
+		//then create an instance of CreatedUserDTO and map it from the savedusr
 		//and return the CreatedUserDTO
 	}
 	
