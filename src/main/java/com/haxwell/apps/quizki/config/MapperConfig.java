@@ -11,6 +11,13 @@ public class MapperConfig {
 
 	@Bean
 	public ModelMapper modelMapper() {
-		return new ModelMapper();
+
+		ModelMapper mm = new ModelMapper();
+		//add configurations here
+		
+		System.out.println("The modelMapper is being configured here...");
+		
+		
+		return mm;
 	}
 }
