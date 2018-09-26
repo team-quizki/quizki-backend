@@ -50,6 +50,10 @@ public class CreatedUserDTO {
 		this.roleId = roleId;
 	}
 	
+	public CreatedUserDTO() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	
 	
 	public UserServiceImpl(UserRepository uRepo, UserRoleRepository uroleRepo) {
-//		super();
+
 		this.uRepo = uRepo;
 		this.uroleRepo = uroleRepo;
 	}
@@ -59,13 +59,35 @@ public class UserServiceImpl implements UserService {
 			throw new UserRoleNotInDatabaseException(data);
 		}
 		
-		//Create a new User instance and map it from the ucdto here
+		//Create a new User instance and map it from the ucdto DTO here
+		User user = new User();
 		
+		user.setName(ucdto.getName());
+		user.setEmail(ucdto.getEmail());
+		user.setRole(urole.get());
+		user.setDemographic("default");				//TODO remove
+		user.setEnabled(1);							//TODO remove
+		user.setFullname(ucdto.getFullname());
+		user.setPassword(ucdto.getPassword());
+		user.setId(null);
 		
 		User savedusr = uRepo.save(user);
 		
 		//then create an instance of CreatedUserDTO and map it from the savedusr
 		//and return the CreatedUserDTO
+		
+		CreatedUserDTO cudto = new CreatedUserDTO();
+		
+		cudto.setEmail(savedusr.getEmail());
+		cudto.setName(savedusr.getName());
+		cudto.setFullname(savedusr.getFullname());
+		cudto.setId(savedusr.getId());
+		cudto.setRoleId(savedusr.getRole().getId());
+		
+		return cudto;
+		
+		
+		
 	}
 	
 	

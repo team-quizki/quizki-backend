@@ -133,8 +133,8 @@ public class User {
         
     }
 
-    //used exclusively by JPA
-    protected User() { 
+    
+    public User() { 
     	
     }
     
