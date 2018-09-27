@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
 
 				rtn.put("name", count == 0);
 
-//			break;
+			break;
 			case "email" :
 				count = uRepo.countByEmail(field.getValue());
 				

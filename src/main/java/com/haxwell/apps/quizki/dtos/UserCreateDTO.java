@@ -1,5 +1,6 @@
 package com.haxwell.apps.quizki.dtos;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -8,7 +9,7 @@ public class UserCreateDTO {
 	@NotBlank
 	private String name;
 	
-	@Email
+	@Email(message="incorrect email format")
 	@NotBlank
 	private String email;
 	
@@ -18,7 +19,7 @@ public class UserCreateDTO {
 	@NotBlank
 	private String fullname;
 	
-	@NotBlank
+	@Digits(integer=6, fraction=0)
 	private long roleId;
 	
 	public String getName() {
@@ -59,6 +60,10 @@ public class UserCreateDTO {
 		this.password = password;
 		this.fullname = fullname;
 		this.roleId = roleId;
+	}
+	
+	public UserCreateDTO() {
+		
 	}
 	
 	@Override
