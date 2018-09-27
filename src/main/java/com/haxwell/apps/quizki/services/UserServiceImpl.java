@@ -91,9 +91,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	
-	public HashMap<String, String> emailOrNameIsUnique(HashMap<String, String> fields){
+	public HashMap<String, Boolean> emailOrNameIsUnique(HashMap<String, String> fields){
 		
 		long count = 0;
+		HashMap<String, Boolean> rtn = new HashMap<String, Boolean>();
 		
 		for(Map.Entry<String, String> field : fields.entrySet()) {
 			
@@ -102,22 +103,21 @@ public class UserServiceImpl implements UserService {
 			switch (field.getKey()) {
 			case "name" :
 				count = uRepo.countByName(field.getValue());
-				if(count == 0)
-					field.setValue("true");
-				else
-					field.setValue("false");
-			break;
+
+
+				rtn.put("name", count == 0);
+
+//			break;
 			case "email" :
 				count = uRepo.countByEmail(field.getValue());
-				if(count == 0)
-					field.setValue("true");
-				else
-					field.setValue("false");
+				
+				rtn.put("email", count == 0);
+
 			break;
 			}
 		}
 		
-		return fields;
+		return rtn;
 	}
 	
 }

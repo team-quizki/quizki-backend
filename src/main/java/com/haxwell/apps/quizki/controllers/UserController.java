@@ -39,11 +39,11 @@ public class UserController {
 	@PostMapping(
 			value = "/isUnique",
 			consumes = "application/json")
-	public ResponseEntity<HashMap<String,String>> isUnique(@RequestBody HashMap<String,String> fields){
+	public ResponseEntity<HashMap<String,Boolean>> isUnique(@RequestBody HashMap<String,String> fields){
 		
-		fields = uService.emailOrNameIsUnique(fields);
+		//fields = uService.emailOrNameIsUnique(fields);
 		
-		return new ResponseEntity<HashMap<String,String>>(fields, HttpStatus.OK) ;
+		return new ResponseEntity<HashMap<String,Boolean>>(uService.emailOrNameIsUnique(fields), HttpStatus.OK) ;
 				
 	}
 
