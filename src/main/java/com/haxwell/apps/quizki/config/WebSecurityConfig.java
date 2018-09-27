@@ -48,8 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().authenticationEntryPoint(auth)
         	.and()
-        	.csrf()
-            	.disable()
         	.authorizeRequests()
     		.antMatchers(HttpMethod.POST, "/api/users").permitAll()
     		.antMatchers(HttpMethod.POST, "/api/users/isUnique").permitAll()
@@ -57,9 +55,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     		.antMatchers(HttpMethod.GET, "/api/roles").permitAll()
 	    		// TODO: Handle login.. That should be open.
 	    		.antMatchers("/api/**").authenticated()
-                .and() 
-                .logout()
-                .permitAll();
+	    		.and()
+	        	.csrf()
+            	.disable();
+//                .and() 
+//                .logout()
+//                .permitAll();
     }
 	
 }

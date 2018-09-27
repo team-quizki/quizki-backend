@@ -8,6 +8,6 @@ import com.haxwell.apps.quizki.dtos.UserCreateDTO;
 public interface UserService {
 	
 	public CreatedUserDTO  createNewUser(UserCreateDTO ucdto);
-	public HashMap<String, String> emailOrNameIsUnique(HashMap<String, String> fields);
+	public HashMap<String, Boolean> emailOrNameIsUnique(HashMap<String, String> fields);
 
 }
