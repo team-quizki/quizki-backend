@@ -34,6 +34,8 @@ You will need to clone this repository.
 ### Initializing the Database
 You will only need to do this the first time you run the backend.
   1. Initialize a user. `$ mysql -u root -p < ./src/main/resources/META-INF/sql/init_quizki2_user.sql`
+
+It is okay if you do this anytime you want to start your database from scratch.
   2. Populate the database. `$ mysql -u root -p < ./src/main/resources/META-INF/sql/populate_quizki2_db_02180619.sql`
 
 You can check that it is working by entering the database. `$ mysql -u quizki2 -p quizki2_db`
@@ -45,7 +47,7 @@ To get the backend running on your local machine, you will need a MySQL daemon r
 
 ## Running the Tests
 
-We do not currently have tests built for the backend
+Type `$ mvn test`.
 
 ## Deployment
 
@@ -80,6 +82,5 @@ This project is in alpha version.
 
 GPL v3.0 all day.
 
-## Acknowledgements
 
-We would like to thank our sponsors:
+
