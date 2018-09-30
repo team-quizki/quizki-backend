@@ -1,60 +1,33 @@
 package com.haxwell.apps.quizki.controllers;
 
-import com.haxwell.apps.quizki.entities.Topic;
-
-import java.util.function.Consumer;	
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.haxwell.apps.quizki.repositories.TopicRepository;
-
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
+import com.haxwell.apps.quizki.entities.Topic;
+import com.haxwell.apps.quizki.services.TopicService;
 
 @CrossOrigin
 @RestController
 @RequestMapping(value = { "/api/topic" })
 public class TopicController {
 
-	private final TopicRepository tr;
-	
 	@Autowired
-	TopicController(TopicRepository tr) {
-		this.tr = tr;
+	TopicService ts;
+
+	@Autowired
+	TopicController() {
+		
 	}
 
-	@PostMapping(value = "/")
-	public JSONArray createNew(HttpServletRequest request, Model model) throws Exception {
-		
-		String value = request.getParameter("value");
-		
-		JSONParser p = new JSONParser(JSONParser.MODE_STRICTEST);
-		JSONObject obj = (JSONObject)p.parse(value);
-		
-		JSONArray arr = (JSONArray)obj.get("arr");
-		JSONArray rtn = new JSONArray();
-		
-		arr.forEach(new Consumer<Object>() {
-			public void accept(Object o) {
-				Topic topic = tr.findByText(o.toString());
-							
-				if (topic == null) {
-					topic = new Topic(o.toString());
-					topic = tr.save(topic);
-				}
-				
-				rtn.add(topic.getId());
-			}
-		});
-		
-		return rtn;
+	// SAMPLE INPUT: [{"text": "one"}, {"text": "two"}, {"text": "three"}, {"text": "four"}]
+	@PostMapping(value = "/", consumes = "application/json", produces = "application/json")
+	public String createNew(@RequestBody List<Topic> topics) throws Exception {
+		return ts.createNew(topics);
 	}
 }

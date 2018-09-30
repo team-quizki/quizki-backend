@@ -1,46 +1,33 @@
 package com.haxwell.apps.quizki.controllers;
 
-import java.util.function.Consumer;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.haxwell.apps.quizki.repositories.ReferenceRepository;
-
-import net.minidev.json.JSONArray;
-import net.minidev.json.parser.JSONParser;
+import com.haxwell.apps.quizki.entities.Reference;
+import com.haxwell.apps.quizki.services.ReferenceService;
 
 @CrossOrigin
 @RestController
 @RequestMapping(value = { "/api/reference" })
 public class ReferenceController {
 
-	private final ReferenceRepository rr;
+	@Autowired
+	ReferenceService rs;
 	
 	@Autowired
-	ReferenceController(ReferenceRepository rr) {
-		this.rr = rr;
+	ReferenceController() {
+
 	}
 
-	@PostMapping(value = "/")
-	public void createNew(HttpServletRequest request, Model model) throws Exception {
-		
-		String value = request.getParameter("value");
-		
-		JSONParser p = new JSONParser(JSONParser.MODE_STRICTEST);
-		JSONArray arr = (JSONArray)p.parse(value);
-		
-		arr.forEach(new Consumer<Object>() {
-			public void accept(Object o) {
-				System.out.println(o.getClass().toGenericString());
-			}
-		});
-		
+	// SAMPLE INPUT: [{"text": "one"}, {"text": "two"}, {"text": "three"}, {"text": "four"}]
+	@PostMapping(value = "/", consumes = "application/json", produces = "application/json")
+	public String createNew(@RequestBody List<Reference> refs) throws Exception {
+		return rs.createNew(refs);
 	}
 }
