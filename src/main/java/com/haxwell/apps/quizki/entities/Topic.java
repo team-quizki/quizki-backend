@@ -14,6 +14,10 @@ public class Topic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public void setId(Long l) {
+    	id = l;
+    }
+    
     public Long getId() {
         return id;
     }

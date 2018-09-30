@@ -18,6 +18,10 @@ public class Reference {
         return id;
     }
     
+    public void setId(Long l) {
+    	this.id = l;
+    }
+    
     private String text;
     
     public String getText() {
