@@ -74,7 +74,6 @@ This project is in alpha version.
 * Deborah
 * Jeremiah
 * Nabil
-*
 
 ## License
 
