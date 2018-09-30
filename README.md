@@ -34,6 +34,8 @@ You will need to clone this repository.
 ### Initializing the Database
 You will only need to do this the first time you run the backend.
   1. Initialize a user. `$ mysql -u root -p < ./src/main/resources/META-INF/sql/init_quizki2_user.sql`
+
+It is okay if you do this anytime you want to start your database from scratch.
   2. Populate the database. `$ mysql -u root -p < ./src/main/resources/META-INF/sql/populate_quizki2_db_02180619.sql`
 
 You can check that it is working by entering the database. `$ mysql -u quizki2 -p quizki2_db`
@@ -41,11 +43,11 @@ You can check that it is working by entering the database. `$ mysql -u quizki2 -
 ## Development Server
 To get the backend running on your local machine, you will need a MySQL daemon running and you will need to compile and run the application. Follow these steps each time you want to run the backend.
   1. Run a MySQL daemon in the background. `$ mysqld`
-  2. Compile and run the application by using the Spring Boot Maven plugin. `$ mvn sping-boot:run`
+  2. Compile and run the application by using the Spring Boot Maven plugin. `$ mvn spring-boot:run`
 
 ## Running the Tests
 
-We do not currently have tests built for the backend
+Type `$ mvn test`.
 
 ## Deployment
 
@@ -74,12 +76,11 @@ This project is in alpha version.
 * Deborah
 * Jeremiah
 * Nabil
-* 
+*
 
 ## License
 
 GPL v3.0 all day.
 
-## Acknowledgements
 
-We would like to thank our sponsors:
+
