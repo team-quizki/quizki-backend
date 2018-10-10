@@ -30,6 +30,11 @@ public class Choice {
 		this.sequence = sequence;
 		this.isCorrect = isCorrect;
 	}
+	
+	
+	public Choice() {
+		
+	}
 
 	public long getId() {
 		return id;
