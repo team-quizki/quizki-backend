@@ -17,8 +17,8 @@ public class Question {
 	private User user;
 	private String description;
 	private String text;
-	private String difficulty;
-	private String questionType;
+	private int difficulty;
+	private int questionType;
 	
 	private Set<Reference> references;
 	
@@ -74,22 +74,22 @@ public class Question {
 	}
 
 
-	public String getDifficulty() {
+	public int getDifficulty() {
 		return difficulty;
 	}
 
 
-	public void setDifficulty(String difficulty) {
+	public void setDifficulty(int difficulty) {
 		this.difficulty = difficulty;
 	}
 
 
-	public String getQuestionType() {
+	public int getQuestionType() {
 		return questionType;
 	}
 
 
-	public void setQuestionType(String questionType) {
+	public void setQuestionType(int questionType) {
 		this.questionType = questionType;
 	}
 
