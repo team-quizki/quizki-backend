@@ -3,11 +3,17 @@ package com.haxwell.apps.quizki.entities;
 
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 
 import javax.validation.constraints.NotBlank;
@@ -120,7 +126,10 @@ public class User {
     public String fullname;
     public String demographic;
     
-    
+    @OneToMany(fetch = FetchType.LAZY,
+    		cascade = {CascadeType.ALL},
+    		mappedBy = "user")
+    private Set<Question> questions = new HashSet<Question>();
     
     public User(UserRole role, String name, String password, String fullname, String email, String demographic) {
         this.name = name;
