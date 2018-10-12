@@ -1,9 +1,17 @@
 package com.haxwell.apps.quizki.entities;
 
+import com.haxwell.apps.quizki.entities.Question;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Choice {
@@ -15,6 +23,12 @@ public class Choice {
 	private String text;
 	private int sequence;
 	private boolean isCorrect;
+	
+	
+	@ManyToOne (fetch = FetchType.LAZY, optional = false)
+	@JoinColumn (name = "question_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Question question;
 	
 	public Choice(long id, String text, int sequence) {
 //		super();
