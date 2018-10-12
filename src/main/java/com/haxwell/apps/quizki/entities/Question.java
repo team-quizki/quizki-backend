@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -32,7 +34,11 @@ public class Question {
 	
 	private Set<Reference> references;
 	
-	
+	@ManyToMany(fetch = FetchType.LAZY, 
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "question_topic",
+				joinColumns = {@JoinColumn(name = "question_id")},
+				inverseJoinColumns = {@JoinColumn(name = "topic_id")})
 	private Set<Topic> topics;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "question")

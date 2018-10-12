@@ -134,6 +134,22 @@ INSERT INTO `topic` VALUES (1, 'biology');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `question_topic`
+--
+
+DROP TABLE IF EXISTS `question_topic`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `question_topic` (
+  `question_id` bigint(20) NOT NULL,
+  `topic_id` bigint(20) NOT NULL,
+  KEY `question_id` (`question_id`),
+  KEY `topic_id` (`topic_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
 -- Table structure for table `reference`
 --
 
