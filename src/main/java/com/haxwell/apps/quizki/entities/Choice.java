@@ -30,6 +30,16 @@ public class Choice {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Question question;
 	
+	
+	
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
 	public Choice(long id, String text, int sequence) {
 //		super();
 		this.id = id;
