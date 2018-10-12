@@ -1,10 +1,16 @@
 package com.haxwell.apps.quizki.entities;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 
 @Entity
@@ -31,6 +37,11 @@ public class Reference {
     public void setText(String str) { 
     	this.text = str;
     }
+    
+    @ManyToMany(fetch = FetchType.LAZY,
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+			mappedBy = "references")
+    private Set<Question> questions = new HashSet<Question>();
     
     public String toString() {
     	return id + " " + text;

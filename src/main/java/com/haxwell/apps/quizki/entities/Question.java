@@ -1,5 +1,6 @@
 package com.haxwell.apps.quizki.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -30,19 +31,22 @@ public class Question {
 	private int difficulty;
 	private int questionType;
 	
-	
-	
-	private Set<Reference> references;
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "question_reference",
+				joinColumns = {@JoinColumn(name = "question_id")},
+				inverseJoinColumns = {@JoinColumn(name = "reference_id")})
+	private Set<Reference> references = new HashSet<Reference>();
 	
 	@ManyToMany(fetch = FetchType.LAZY, 
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "question_topic",
 				joinColumns = {@JoinColumn(name = "question_id")},
 				inverseJoinColumns = {@JoinColumn(name = "topic_id")})
-	private Set<Topic> topics;
+	private Set<Topic> topics = new HashSet<Topic>();
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "question")
-	private Set<Choice> choices;
+	private Set<Choice> choices = new HashSet<Choice>();
 
 
 	public Question() {

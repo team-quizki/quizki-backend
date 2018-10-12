@@ -134,7 +134,7 @@ INSERT INTO `topic` VALUES (1, 'biology');
 UNLOCK TABLES;
 
 --
--- Table structure for table `question_topic`
+-- Table structure for jointable `question_topic`
 --
 
 /*
@@ -182,6 +182,34 @@ LOCK TABLES `reference` WRITE;
 INSERT INTO `reference` VALUES (1, 'https://en.wikipedia.org/wiki/Biology');
 /*40000 ALTER TABLE `reference` ENABLE KEYST */;
 UNLOCK TABLES;
+
+--
+-- Table structure for jointable `question_reference`
+--
+
+/*
+ * The keys in this join table should both be foreign keys!!!!
+ * see https://www.baeldung.com/hibernate-many-to-many
+ */
+
+
+DROP TABLE IF EXISTS `question_reference`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `question_reference` (
+  `question_id` bigint(20) NOT NULL,
+  `reference_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`question_id`, `reference_id`),
+  KEY `reference_id` (`reference_id`),
+  CONSTRAINT `question_reference_ibfk_1`
+   FOREIGN KEY (`question_id`) REFERENCES `question` (`id`),
+  CONSTRAINT `question_reference_ibfk_2`
+   FOREIGN KEY (`reference_id`) REFERENCES `reference` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+
 
 --
 -- remove `user_user_role_map` from previous version
