@@ -2,10 +2,15 @@ package com.haxwell.apps.quizki.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Question {
@@ -14,18 +19,23 @@ public class Question {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	protected long id;
 	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
+	
 	private String description;
 	private String text;
 	private int difficulty;
 	private int questionType;
+	
+	
 	
 	private Set<Reference> references;
 	
 	
 	private Set<Topic> topics;
 	
-	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "question")
 	private Set<Choice> choices;
 
 
