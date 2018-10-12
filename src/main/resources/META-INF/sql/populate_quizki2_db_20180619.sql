@@ -137,14 +137,24 @@ UNLOCK TABLES;
 -- Table structure for table `question_topic`
 --
 
+/*
+ * The keys in this join table should both be foreign keys!!!!
+ * see https://www.baeldung.com/hibernate-many-to-many
+ */
+
+
 DROP TABLE IF EXISTS `question_topic`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `question_topic` (
   `question_id` bigint(20) NOT NULL,
   `topic_id` bigint(20) NOT NULL,
-  KEY `question_id` (`question_id`),
-  KEY `topic_id` (`topic_id`)
+  PRIMARY KEY (`question_id`, `topic_id`),
+  KEY `topic_id` (`topic_id`),
+  CONSTRAINT `question_topic_ibfk_1`
+   FOREIGN KEY (`question_id`) REFERENCES `question` (`id`),
+  CONSTRAINT `question_topic_ibfk_2`
+   FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
