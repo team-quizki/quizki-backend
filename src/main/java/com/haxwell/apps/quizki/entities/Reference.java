@@ -43,7 +43,15 @@ public class Reference {
 			mappedBy = "references")
     private Set<Question> questions = new HashSet<Question>();
     
-    public String toString() {
+    public Set<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
+	}
+
+	public String toString() {
     	return id + " " + text;
     }
 
