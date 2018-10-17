@@ -45,5 +45,70 @@ public class CreateQuestionDTO {
 	public CreateQuestionDTO() {
 		
 	}
+
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public Set<String> getTopics() {
+		return topics;
+	}
+
+	public void setTopics(Set<String> topics) {
+		this.topics = topics;
+	}
+
+	public Set<String> getReferences() {
+		return references;
+	}
+
+	public void setReferences(Set<String> references) {
+		this.references = references;
+	}
+
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public Set<CreateChoiceDTO> getChoices() {
+		return choices;
+	}
+
+	public void setChoices(Set<CreateChoiceDTO> choices) {
+		this.choices = choices;
+	}
+	
 	
 }
