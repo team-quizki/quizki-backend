@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.haxwell.apps.quizki.dtos.CreateChoiceDTO;
 import com.haxwell.apps.quizki.dtos.CreateQuestionDTO;
 import com.haxwell.apps.quizki.dtos.CreatedQuestionDTO;
 import com.haxwell.apps.quizki.entities.Choice;
@@ -44,6 +45,7 @@ public class QuestionServiceImpl implements QuestionService {
 	private Set<Choice> choices = new HashSet<Choice>();
 	
 	private CreatedQuestionDTO outputDTO;
+	private Set<CreateChoiceDTO> choiceDTOs;
 	private Question question;
 	private Question savedQuestion;
 	
@@ -77,6 +79,7 @@ public class QuestionServiceImpl implements QuestionService {
 		this.question = new Question();
 		this.outputDTO = new CreatedQuestionDTO();
 		
+		
 		//TODO: check if this needs to be in a try/catch for DB access problems
 		this.user = userRepo.findById(cqDTO.getUserId());
 		
@@ -109,6 +112,16 @@ public class QuestionServiceImpl implements QuestionService {
 		this.question.setDifficulty(this.difficulty);
 		this.outputDTO.setDifficulty(this.difficulty);
 		
+		this.choiceDTOs = cqDTO.getChoices();
+		for(CreateChoiceDTO ccDTO : this.choiceDTOs) {
+			Choice choice = new Choice();
+			choice.setSequence(0);		//default for Single & Multiple types need logic here for other question types
+			choice.setCorrect(ccDTO.getCorrect());
+			choice.setText(ccDTO.getText());
+			this.question.getChoices().add(choice);
+		}
+		
+		//TODO: after the question is saved and the saved version returned get the newly created choices and add them to the DTO
 		
 		return outputDTO;
 	}
