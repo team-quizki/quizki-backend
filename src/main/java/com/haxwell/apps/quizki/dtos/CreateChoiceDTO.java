@@ -39,4 +39,8 @@ public class CreateChoiceDTO {
 		this.isCorrect = isCorrect;
 	}
 	
+	public boolean getCorrect() {
+		return this.isCorrect;
+	}
+	
 }
