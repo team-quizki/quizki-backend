@@ -2,6 +2,10 @@ package com.haxwell.apps.quizki.dtos;
 
 import java.util.Set;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class CreateQuestionDTO {
 
 	/*
@@ -19,14 +23,26 @@ public class CreateQuestionDTO {
 	 * }
 	 * 
 	 */
-	
+	@NotNull
 	private long userId;
+	
+	@NotBlank
 	private String text;
+	
 	private String description;
+	
+	@NotNull
 	private int type;
-	private Set<String> topics;
-	private Set<String> references;
+	
+	@Size(min = 1, message = "Must have a Topic")
+	private Set<@Size(min =2, message = "Minimum 2 characters") String> topics;
+	
+	private Set<@Size(min = 6, message = "Minimum 6 characters") String> references;
+	
+	@NotNull
 	private int difficulty;
+	
+	@Size(min = 2, message = "Minimum 2 choices")
 	private Set<CreateChoiceDTO> choices;
 	
 	public CreateQuestionDTO(long userId, String text, String description, int type, Set<String> topics,
