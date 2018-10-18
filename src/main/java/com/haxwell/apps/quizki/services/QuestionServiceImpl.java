@@ -171,7 +171,9 @@ public class QuestionServiceImpl implements QuestionService {
 		savedQuestion = this.questionRepo.save(this.question);
 		
 		outputDTO.setChoices(this.savedQuestion.getChoices());
+		//TODO: Topics have Questions that will be included in this object, there may need to be a TopicDTO without them
 		outputDTO.setTopics(this.savedQuestion.getTopics());
+		//TODO: References have Questions that will be included in this object, there may need to be a ReferenceDTO without them
 		for(Reference r: this.savedQuestion.getReferences()) {
 			r.setText(HtmlUtils.htmlUnescape(r.getText()));
 		}
