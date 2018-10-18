@@ -4,16 +4,10 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
 import com.haxwell.apps.quizki.dtos.CreateChoiceDTO;
 import com.haxwell.apps.quizki.dtos.CreateQuestionDTO;
@@ -25,7 +19,6 @@ import com.haxwell.apps.quizki.entities.Topic;
 import com.haxwell.apps.quizki.entities.User;
 import com.haxwell.apps.quizki.exceptions.UserRoleNotInDatabaseException;
 import com.haxwell.apps.quizki.exceptions.ValidationErrorData;
-import com.haxwell.apps.quizki.repositories.ChoiceRepository;
 import com.haxwell.apps.quizki.repositories.QuestionRepository;
 import com.haxwell.apps.quizki.repositories.ReferenceRepository;
 import com.haxwell.apps.quizki.repositories.TopicRepository;
@@ -40,9 +33,8 @@ public class QuestionServiceImpl implements QuestionService {
 	private String text;
 	private int difficulty;
 	private int questionType;
-	private Set<Reference> references = new HashSet<Reference>();
-	private Set<Topic> topics = new HashSet<Topic>();
-	private Set<Choice> choices = new HashSet<Choice>();
+	private Set<String> refStrings = new HashSet<String>();
+	private Set<String> topicStrings = new HashSet<String>();
 	
 	private CreatedQuestionDTO outputDTO;
 	private Set<CreateChoiceDTO> choiceDTOs;
@@ -58,19 +50,16 @@ public class QuestionServiceImpl implements QuestionService {
 	@Autowired
 	private ReferenceRepository refRepo;
 	
-	@Autowired
-	private ChoiceRepository choiceRepo;
 	
 	@Autowired
 	private UserRepository userRepo;
 
 	public QuestionServiceImpl(QuestionRepository questionRepo, TopicRepository topicRepo, ReferenceRepository refRepo,
-			ChoiceRepository choiceRepo, UserRepository userRepo) {
+			 UserRepository userRepo) {
 //		super();
 		this.questionRepo = questionRepo;
 		this.topicRepo = topicRepo;
 		this.refRepo = refRepo;
-		this.choiceRepo = choiceRepo;
 		this.userRepo = userRepo;
 	}
 	
@@ -78,6 +67,14 @@ public class QuestionServiceImpl implements QuestionService {
 		
 		this.question = new Question();
 		this.outputDTO = new CreatedQuestionDTO();
+		
+		Optional<Topic> aTopic = null;
+		Optional<Reference> aRef = null;
+		
+		Set<Question> setQuestion = null;
+		setQuestion.add(this.question);
+		
+		
 		
 		
 		//TODO: check if this needs to be in a try/catch for DB access problems
@@ -97,8 +94,7 @@ public class QuestionServiceImpl implements QuestionService {
 		this.outputDTO.setUserId(user.get().getId());
 		
 		this.text = cqDTO.getText();
-		this.question.setText(this.text);
-		this.outputDTO.setText(this.text);
+		this.question.setText(HtmlUtils.htmlEscape(this.text));
 		
 		this.description = cqDTO.getDescription();
 		this.question.setDescription(this.description);
@@ -121,7 +117,42 @@ public class QuestionServiceImpl implements QuestionService {
 			this.question.getChoices().add(choice);
 		}
 		
-		//TODO: after the question is saved and the saved version returned get the newly created choices and add them to the DTO
+		
+		this.topicStrings = cqDTO.getTopics();
+		for(String ts: this.topicStrings) {
+			aTopic.of(topicRepo.findByText(ts.toLowerCase()));
+			if(aTopic.isPresent()) {
+				this.question.getTopics().add(aTopic.get());
+			} else {
+				Topic newTopic = new Topic(ts.toLowerCase());
+				newTopic.setQuestions(setQuestion);
+				this.question.getTopics().add(newTopic);
+			}
+		}
+		
+
+		this.refStrings = cqDTO.getReferences();
+		for(String rs: this.refStrings) {
+			aRef.of(refRepo.findByText(HtmlUtils.htmlEscape(rs)));
+			if(aRef.isPresent()) {
+				this.question.getReferences().add(aRef.get());
+			} else {
+				Reference newRef = new Reference(HtmlUtils.htmlEscape(rs));
+				newRef.setQuestions(setQuestion);
+				this.question.getReferences().add(newRef);
+			}
+			
+		}
+		
+		savedQuestion = this.questionRepo.save(this.question);
+		
+		outputDTO.setChoices(this.savedQuestion.getChoices());
+		outputDTO.setTopics(this.savedQuestion.getTopics());
+		for(Reference r: this.savedQuestion.getReferences()) {
+			r.setText(HtmlUtils.htmlUnescape(r.getText()));
+		}
+		outputDTO.setReferences(this.savedQuestion.getReferences());
+		outputDTO.setText(HtmlUtils.htmlUnescape(this.savedQuestion.getText()));
 		
 		return outputDTO;
 	}
