@@ -1,6 +1,8 @@
 package com.haxwell.apps.quizki.dtos;
 
+
 import javax.validation.constraints.NotBlank;
+
 
 /*
  * Object passed by front-end in the CreateQuestionDTO to create choices
@@ -11,9 +13,11 @@ import javax.validation.constraints.NotBlank;
 
 public class CreateChoiceDTO {
 	
+
 	@NotBlank
 	private String text;
 	
+
 	private boolean isCorrect;
 	
 	public CreateChoiceDTO(String text, boolean isCorrect) {

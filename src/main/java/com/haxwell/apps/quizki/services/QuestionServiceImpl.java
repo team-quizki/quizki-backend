@@ -96,17 +96,24 @@ public class QuestionServiceImpl implements QuestionService {
 		this.outputDTO.setDescription(this.description);
 		
 		this.questionType = cqDTO.getType();
+
 		//TODO: check type for inclusion and throw error if not
+
+
 		this.question.setQuestionType(this.questionType);
 		this.outputDTO.setQuestionType(this.questionType);
 		
 		this.difficulty = cqDTO.getDifficulty();
+
 		//TODO: check difficulty for inclusion and throw error if not
+
 		this.question.setDifficulty(this.difficulty);
 		this.outputDTO.setDifficulty(this.difficulty);
 		
 		this.choiceDTOs = cqDTO.getChoices();
+
 		//TODO: check that at least one choice is correct and throw exception if not
+
 		for(CreateChoiceDTO ccDTO : this.choiceDTOs) {
 			Choice choice = new Choice();
 			choice.setSequence(0);		//default for Single & Multiple types need logic here for other question types
