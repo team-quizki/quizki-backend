@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Question {
 
+	//TODO: Add validation including a check for forbidden characters to prevent script attacks
+	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	protected long id;
