@@ -1,12 +1,12 @@
 package com.haxwell.apps.quizki.exceptions;
 
-public class UserNotInDatabaseException extends Throwable {
+public class CreateQuestionDTOException extends Throwable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private ValidationErrorData data;
 	
-	public UserNotInDatabaseException(ValidationErrorData data) {
+	public CreateQuestionDTOException(ValidationErrorData data) {
 		this.data = data;
 		
 	}

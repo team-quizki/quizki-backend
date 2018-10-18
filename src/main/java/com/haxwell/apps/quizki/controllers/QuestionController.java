@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.haxwell.apps.quizki.dtos.CreateQuestionDTO;
 import com.haxwell.apps.quizki.dtos.CreatedQuestionDTO;
-import com.haxwell.apps.quizki.exceptions.UserNotInDatabaseException;
+import com.haxwell.apps.quizki.exceptions.CreateQuestionDTOException;
 import com.haxwell.apps.quizki.services.QuestionService;
 
 @CrossOrigin (origins = "http://localhost:4200")
@@ -29,7 +29,7 @@ public class QuestionController {
 	
 	@PostMapping
 	@ResponseBody
-	public CreatedQuestionDTO create(@RequestBody @Valid CreateQuestionDTO cqDTO) throws UserNotInDatabaseException {
+	public CreatedQuestionDTO create(@RequestBody @Valid CreateQuestionDTO cqDTO) throws CreateQuestionDTOException {
 		 return qs.createQuestion(cqDTO);
 	}
 }

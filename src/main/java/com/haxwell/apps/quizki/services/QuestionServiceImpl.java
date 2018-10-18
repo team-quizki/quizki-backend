@@ -17,7 +17,7 @@ import com.haxwell.apps.quizki.entities.Question;
 import com.haxwell.apps.quizki.entities.Reference;
 import com.haxwell.apps.quizki.entities.Topic;
 import com.haxwell.apps.quizki.entities.User;
-import com.haxwell.apps.quizki.exceptions.UserNotInDatabaseException;
+import com.haxwell.apps.quizki.exceptions.CreateQuestionDTOException;
 import com.haxwell.apps.quizki.exceptions.ValidationErrorData;
 import com.haxwell.apps.quizki.repositories.QuestionRepository;
 import com.haxwell.apps.quizki.repositories.ReferenceRepository;
@@ -63,7 +63,7 @@ public class QuestionServiceImpl implements QuestionService {
 		this.userRepo = userRepo;
 	}
 	
-	public CreatedQuestionDTO createQuestion(CreateQuestionDTO cqDTO) throws UserNotInDatabaseException {
+	public CreatedQuestionDTO createQuestion(CreateQuestionDTO cqDTO) throws CreateQuestionDTOException {
 		
 		this.question = new Question();
 		this.outputDTO = new CreatedQuestionDTO();
@@ -80,8 +80,8 @@ public class QuestionServiceImpl implements QuestionService {
 		if(!user.isPresent()) {
 			
 			ValidationErrorData data = new ValidationErrorData();
-			data.addFieldError("user", "user.not.in.database");
-			throw new UserNotInDatabaseException(data);
+			data.addFieldError("user", "user.not.valid");
+			throw new CreateQuestionDTOException(data);
 			
 		}
 		
@@ -95,31 +95,50 @@ public class QuestionServiceImpl implements QuestionService {
 		this.question.setDescription(this.description);
 		this.outputDTO.setDescription(this.description);
 		
-		this.questionType = cqDTO.getType();
-
-		//TODO: check type for inclusion and throw error if not
-
+		this.questionType = cqDTO.getType();		
+		if(this.questionType < 0 || this.questionType > 1) {
+			
+			ValidationErrorData data = new ValidationErrorData();
+			data.addFieldError("type", "type.not.in.types");
+			throw new CreateQuestionDTOException(data);
+			
+			
+		}
 
 		this.question.setQuestionType(this.questionType);
 		this.outputDTO.setQuestionType(this.questionType);
 		
 		this.difficulty = cqDTO.getDifficulty();
-
-		//TODO: check difficulty for inclusion and throw error if not
+		if(this.difficulty < 0 || this.difficulty > 1) {
+			
+			ValidationErrorData data = new ValidationErrorData();
+			data.addFieldError("difficulty", "difficulty.not.in.difficulties");
+			throw new CreateQuestionDTOException(data);
+			
+			
+		}
 
 		this.question.setDifficulty(this.difficulty);
 		this.outputDTO.setDifficulty(this.difficulty);
 		
 		this.choiceDTOs = cqDTO.getChoices();
 
-		//TODO: check that at least one choice is correct and throw exception if not
-
+		int isCorrects = 0;
+		
 		for(CreateChoiceDTO ccDTO : this.choiceDTOs) {
 			Choice choice = new Choice();
 			choice.setSequence(0);		//default for Single & Multiple types need logic here for other question types
 			choice.setCorrect(ccDTO.getCorrect());
+			if(choice.getCorrect())
+				++isCorrects;
 			choice.setText(ccDTO.getText());
 			this.question.getChoices().add(choice);
+		}
+		
+		if(isCorrects == 0) {
+			ValidationErrorData data = new ValidationErrorData();
+			data.addFieldError("choices", "choices.choice.isCorrect.not.true");
+			throw new CreateQuestionDTOException(data);
 		}
 		
 		

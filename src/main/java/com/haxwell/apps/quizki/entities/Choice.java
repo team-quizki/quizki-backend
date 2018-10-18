@@ -91,6 +91,10 @@ public class Choice {
 	public void setCorrect(boolean isCorrect) {
 		this.isCorrect = isCorrect;
 	}
+	
+	public boolean getCorrect() {
+		return this.isCorrect;
+	}
 
 	@Override
 	public String toString() {
