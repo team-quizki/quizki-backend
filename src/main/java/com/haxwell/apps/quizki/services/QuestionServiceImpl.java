@@ -17,7 +17,7 @@ import com.haxwell.apps.quizki.entities.Question;
 import com.haxwell.apps.quizki.entities.Reference;
 import com.haxwell.apps.quizki.entities.Topic;
 import com.haxwell.apps.quizki.entities.User;
-import com.haxwell.apps.quizki.exceptions.UserRoleNotInDatabaseException;
+import com.haxwell.apps.quizki.exceptions.UserNotInDatabaseException;
 import com.haxwell.apps.quizki.exceptions.ValidationErrorData;
 import com.haxwell.apps.quizki.repositories.QuestionRepository;
 import com.haxwell.apps.quizki.repositories.ReferenceRepository;
@@ -38,6 +38,7 @@ public class QuestionServiceImpl implements QuestionService {
 	
 	private CreatedQuestionDTO outputDTO;
 	private Set<CreateChoiceDTO> choiceDTOs;
+	
 	private Question question;
 	private Question savedQuestion;
 	
@@ -49,21 +50,20 @@ public class QuestionServiceImpl implements QuestionService {
 	
 	@Autowired
 	private ReferenceRepository refRepo;
-	
-	
+		
 	@Autowired
 	private UserRepository userRepo;
 
 	public QuestionServiceImpl(QuestionRepository questionRepo, TopicRepository topicRepo, ReferenceRepository refRepo,
 			 UserRepository userRepo) {
-//		super();
+		super();
 		this.questionRepo = questionRepo;
 		this.topicRepo = topicRepo;
 		this.refRepo = refRepo;
 		this.userRepo = userRepo;
 	}
 	
-	public CreatedQuestionDTO createQuestion(CreateQuestionDTO cqDTO) {
+	public CreatedQuestionDTO createQuestion(CreateQuestionDTO cqDTO) throws UserNotInDatabaseException {
 		
 		this.question = new Question();
 		this.outputDTO = new CreatedQuestionDTO();
@@ -71,23 +71,18 @@ public class QuestionServiceImpl implements QuestionService {
 		Optional<Topic> aTopic = null;
 		Optional<Reference> aRef = null;
 		
-		Set<Question> setQuestion = null;
+		Set<Question> setQuestion = new HashSet<Question>();
 		setQuestion.add(this.question);
 		
 		
-		
-		
-		//TODO: check if this needs to be in a try/catch for DB access problems
 		this.user = userRepo.findById(cqDTO.getUserId());
 		
 		if(!user.isPresent()) {
-			/*
-			ValidationErrorData data = new ValidationErrorData();
-			data.addFieldError("role", "role.not.in.database");
-			throw new UserRoleNotInDatabaseException(data);
 			
-			add Validation and exception code here...	
-			*/
+			ValidationErrorData data = new ValidationErrorData();
+			data.addFieldError("user", "user.not.in.database");
+			throw new UserNotInDatabaseException(data);
+			
 		}
 		
 		this.question.setUser(user.get());
@@ -120,7 +115,7 @@ public class QuestionServiceImpl implements QuestionService {
 		
 		this.topicStrings = cqDTO.getTopics();
 		for(String ts: this.topicStrings) {
-			aTopic.of(topicRepo.findByText(ts.toLowerCase()));
+			aTopic = Optional.of(topicRepo.findByText(ts.toLowerCase()));
 			if(aTopic.isPresent()) {
 				this.question.getTopics().add(aTopic.get());
 			} else {
@@ -133,7 +128,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 		this.refStrings = cqDTO.getReferences();
 		for(String rs: this.refStrings) {
-			aRef.of(refRepo.findByText(HtmlUtils.htmlEscape(rs)));
+			aRef = Optional.of(refRepo.findByText(HtmlUtils.htmlEscape(rs)));
 			if(aRef.isPresent()) {
 				this.question.getReferences().add(aRef.get());
 			} else {
