@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 public class Question {
 
 	//TODO: Add validation including a check for forbidden characters to prevent script attacks
+	//	if a validation method doesn't exist use if(String s != HtmlUtils.htmlEscape(s)) then Exception
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
