@@ -99,7 +99,7 @@ CREATE TABLE `choice` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `text` varchar(10000) NOT NULL,
   `sequence` bigint(20) NOT NULL,
-  `is_correct` boolean(1) NOT NULL,
+  `is_correct` bit NOT NULL,
   `question_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_question_choice_idx` (`question_id`),
