@@ -18,7 +18,7 @@ import javax.persistence.ManyToMany;
 public class Topic {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     public void setId(Long l) {
@@ -52,7 +52,16 @@ public class Topic {
 	public void setQuestions(Set<Question> questions) {
 		this.questions = questions;
 	}
+	
+	public void addQuestion(Question question) {
+		this.questions.add(question);
+	}
 
+	public void removeQuestion(Question question) {
+		this.questions.remove(question);
+	}
+	
+	
 	public String toString() {
     	return id + " " + text;
     }
@@ -76,9 +85,13 @@ public class Topic {
     	boolean rtn = false;
     	
     	if (o instanceof Topic) {
+    		if(this.getId() == null)
+    			return false;
     		rtn = ((Topic)o).getId().equals(this.getId());
     	}
     	
     	return rtn;
     }
+
+	
 }

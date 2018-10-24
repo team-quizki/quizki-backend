@@ -22,7 +22,7 @@ public class Question {
 	//	if a validation method doesn't exist use if(String s != HtmlUtils.htmlEscape(s)) then Exception
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	protected long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -35,17 +35,17 @@ public class Question {
 	private int questionType;
 	
 	@ManyToMany(fetch = FetchType.LAZY,
-			cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+			cascade = {CascadeType.MERGE, CascadeType.PERSIST})	
 	@JoinTable(name = "question_reference",
-				joinColumns = {@JoinColumn(name = "question_id")},
-				inverseJoinColumns = {@JoinColumn(name = "reference_id")})
+				joinColumns = {@JoinColumn(name = "question_id", referencedColumnName = "id")},
+				inverseJoinColumns = {@JoinColumn(name = "reference_id", referencedColumnName = "id")})
 	private Set<Reference> references = new HashSet<Reference>();
 	
 	@ManyToMany(fetch = FetchType.LAZY, 
-			cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+			cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinTable(name = "question_topic",
-				joinColumns = {@JoinColumn(name = "question_id")},
-				inverseJoinColumns = {@JoinColumn(name = "topic_id")})
+				joinColumns = {@JoinColumn(name = "question_id", referencedColumnName = "id")},
+				inverseJoinColumns = {@JoinColumn(name = "topic_id", referencedColumnName = "id")})
 	private Set<Topic> topics = new HashSet<Topic>();
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "question")
@@ -126,6 +126,16 @@ public class Question {
 		this.references = references;
 	}
 
+	
+	public void addReference(Reference ref) {
+		references.add(ref);
+		ref.getQuestions().add(this);
+	}
+	
+	public void removeReference(Reference ref) {
+		references.remove(ref);
+		ref.getQuestions().remove(this);
+	}
 
 	public Set<Topic> getTopics() {
 		return topics;
@@ -134,6 +144,16 @@ public class Question {
 
 	public void setTopics(Set<Topic> topics) {
 		this.topics = topics;
+	}
+	
+	public void addTopic(Topic topic) {
+		topics.add(topic);
+		topic.getQuestions().add(this);
+	}
+	
+	public void removeTopic(Topic topic) {
+		topics.remove(topic);
+		topic.getQuestions().remove(this);
 	}
 
 
@@ -146,6 +166,14 @@ public class Question {
 		this.choices = choices;
 	}
 
+	public void addChoice(Choice choice) {
+		this.choices.add(choice);
+		choice.setQuestion(this);
+	}
+	
+	public void removeChoice(Choice choice) {
+		this.choices.remove(choice);
+	}
 
 	@Override
 	public String toString() {
@@ -153,6 +181,9 @@ public class Question {
 				+ ", difficulty=" + difficulty + ", questionType=" + questionType + ", references=" + references
 				+ ", topics=" + topics + ", choices=" + choices + "]";
 	}
+
+
+	
 	
 	
 	

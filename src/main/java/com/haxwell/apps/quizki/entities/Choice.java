@@ -41,14 +41,14 @@ public class Choice {
 	}
 
 	public Choice(long id, String text, int sequence) {
-//		super();
+
 		this.id = id;
 		this.text = text;
 		this.sequence = sequence;
 	}
 
 	public Choice(long id, String text, int sequence, boolean isCorrect) {
-//		super();
+
 		this.id = id;
 		this.text = text;
 		this.sequence = sequence;
@@ -84,15 +84,15 @@ public class Choice {
 		this.sequence = sequence;
 	}
 
-	public boolean isCorrect() {
-		return isCorrect;
-	}
+//	public boolean isCorrect() {
+//		return isCorrect;
+//	}
 
-	public void setCorrect(boolean isCorrect) {
+	public void setIsCorrect(boolean isCorrect) {
 		this.isCorrect = isCorrect;
 	}
 	
-	public boolean getCorrect() {
+	public boolean getIsCorrect() {
 		return this.isCorrect;
 	}
 

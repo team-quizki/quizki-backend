@@ -42,11 +42,11 @@ public class CreateChoiceDTO {
 		return isCorrect;
 	}
 
-	public void setCorrect(boolean isCorrect) {
+	public void setIsCorrect(boolean isCorrect) {
 		this.isCorrect = isCorrect;
 	}
 	
-	public boolean getCorrect() {
+	public boolean getIsCorrect() {
 		return this.isCorrect;
 	}
 	

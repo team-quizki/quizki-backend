@@ -68,11 +68,15 @@ public class QuestionServiceImpl implements QuestionService {
 		this.question = new Question();
 		this.outputDTO = new CreatedQuestionDTO();
 		
-		Optional<Topic> aTopic = null;
-		Optional<Reference> aRef = null;
+		Topic aTopic = null;
+		Reference aRef = null;
 		
-		Set<Question> setQuestion = new HashSet<Question>();
-		setQuestion.add(this.question);
+		Set<Topic> topics = new HashSet<Topic>();
+		Set<Reference> references = new HashSet<Reference>();
+		Set<Choice> choices = new HashSet<Choice>();
+		
+		Set<Question> setQuestions = new HashSet<Question>();
+
 		
 		
 		this.user = userRepo.findById(cqDTO.getUserId());
@@ -121,23 +125,24 @@ public class QuestionServiceImpl implements QuestionService {
 		this.question.setDifficulty(this.difficulty);
 		this.outputDTO.setDifficulty(this.difficulty);
 		
+		
+		this.question.setTopics(topics);
+		this.question.setReferences(references);
+		this.question.setChoices(choices);
+		
+		
 		this.choiceDTOs = cqDTO.getChoices();
 
 		int isCorrects = 0;
 		
 		for(CreateChoiceDTO ccDTO : this.choiceDTOs) {
 			Choice choice = new Choice();
-			choice.setSequence(0);		//default for Single & Multiple types need logic here for other question types
-			choice.setCorrect(ccDTO.getCorrect());
-			if(choice.getCorrect() == true)
+			choice.setSequence(0);		//TODO: add handlers for other question types here
+			choice.setIsCorrect(ccDTO.getIsCorrect());
+			if(choice.getIsCorrect() == true)
 				++isCorrects;
-			choice.setText(ccDTO.getText());
-			this.question.getChoices().add(choice);
-		
-			System.out.println("Choice.text: " + choice.getText());
-			System.out.println("Choice.getCorrect: " + choice.getCorrect());
-			System.out.println("ccDTO.getCorrect: " + ccDTO.getCorrect());
-		
+			choice.setText(ccDTO.getText());			
+			this.question.addChoice(choice);
 		
 		}
 		
@@ -146,35 +151,43 @@ public class QuestionServiceImpl implements QuestionService {
 			data.addFieldError("choices", "choices.choice.isCorrect.not.true");
 			throw new CreateQuestionDTOException(data);
 		}
+
+
 		
 		
 		this.topicStrings = cqDTO.getTopics();
 		for(String ts: this.topicStrings) {
-			aTopic = Optional.of(topicRepo.findByText(ts.toLowerCase()));
-			if(aTopic.isPresent()) {
-				this.question.getTopics().add(aTopic.get());
+			aTopic = topicRepo.findByText(ts.toLowerCase());
+			//add existing topics to the set
+			if(aTopic != null) {
+				this.question.addTopic(aTopic);
 			} else {
+				//or create new topics
 				Topic newTopic = new Topic(ts.toLowerCase());
-				newTopic.setQuestions(setQuestion);
-				this.question.getTopics().add(newTopic);
+				newTopic.setQuestions(setQuestions);				//add a Set of questions
+				newTopic.addQuestion(this.question);			//add this question to the set
+				this.question.addTopic(newTopic);			//then add it to the question's set
 			}
 		}
 		
 
 		this.refStrings = cqDTO.getReferences();
 		for(String rs: this.refStrings) {
-			aRef = Optional.of(refRepo.findByText(HtmlUtils.htmlEscape(rs)));
-			if(aRef.isPresent()) {
-				this.question.getReferences().add(aRef.get());
+			aRef = refRepo.findByText(HtmlUtils.htmlEscape(rs));
+			if(aRef != null) {
+				this.question.addReference(aRef);
 			} else {
 				Reference newRef = new Reference(HtmlUtils.htmlEscape(rs));
-				newRef.setQuestions(setQuestion);
-				this.question.getReferences().add(newRef);
+				newRef.setQuestions(setQuestions);
+				newRef.addQuestion(this.question);
+				this.question.addReference(newRef);
 			}
 			
 		}
 		
-		savedQuestion = this.questionRepo.save(this.question);
+		//save the question again after adding the topics and references
+		this.savedQuestion = this.questionRepo.save(this.question);
+		
 		
 		outputDTO.setChoices(this.savedQuestion.getChoices());
 		//TODO: Topics have Questions that will be included in this object, there may need to be a TopicDTO without them
