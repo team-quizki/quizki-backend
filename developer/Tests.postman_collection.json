@@ -939,6 +939,54 @@
 				"description": "POST an array of strings to api/topic"
 			},
 			"response": []
+		},
+		{
+			"name": "Test create question",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "$2a$04$mtm6rLmZW/EnZ5NLNsX3eew1zD.2Ye57ZqX.3rYNkC/aQI.T00TKm",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "johnathan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"userId\": 1,\n\"text\": \"To be or not to be, that is the question!\",\n\"description\": \"Testing create question endpoint\",\n\"type\": 1,\n\"topics\": [\"Shakespeare\", \"Existentialism\", \"Suicide\"],\n\"references\": [\"http://www.somesite.com/hamlet\", \"a plain text reference\"],\n\"difficulty\": 1,\n\"choices\": [{\"text\":\"To Be\", \"isCorrect\":true}, {\"text\":\"Not to be\", \"isCorrect\":false}]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/question",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"question"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -129,10 +129,16 @@ public class QuestionServiceImpl implements QuestionService {
 			Choice choice = new Choice();
 			choice.setSequence(0);		//default for Single & Multiple types need logic here for other question types
 			choice.setCorrect(ccDTO.getCorrect());
-			if(choice.getCorrect())
+			if(choice.getCorrect() == true)
 				++isCorrects;
 			choice.setText(ccDTO.getText());
 			this.question.getChoices().add(choice);
+		
+			System.out.println("Choice.text: " + choice.getText());
+			System.out.println("Choice.getCorrect: " + choice.getCorrect());
+			System.out.println("ccDTO.getCorrect: " + ccDTO.getCorrect());
+		
+		
 		}
 		
 		if(isCorrects == 0) {
