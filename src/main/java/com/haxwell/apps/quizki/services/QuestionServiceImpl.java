@@ -188,6 +188,7 @@ public class QuestionServiceImpl implements QuestionService {
 		//save the question again after adding the topics and references
 		this.savedQuestion = this.questionRepo.save(this.question);
 		
+		outputDTO.setId(this.savedQuestion.getId());
 		
 		outputDTO.setChoices(this.savedQuestion.getChoices());
 		//TODO: Topics have Questions that will be included in this object, there may need to be a TopicDTO without them
