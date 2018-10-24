@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Reference {
@@ -38,6 +40,7 @@ public class Reference {
     	this.text = str;
     }
     
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE},
 			mappedBy = "references")

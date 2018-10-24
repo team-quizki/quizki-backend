@@ -1,5 +1,6 @@
 package com.haxwell.apps.quizki.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.haxwell.apps.quizki.entities.Question;
 
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class Choice {
 	private int sequence;
 	private boolean isCorrect;
 	
-	
+	@JsonIgnore
 	@ManyToOne (fetch = FetchType.LAZY, optional = false)
 	@JoinColumn (name = "question_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)

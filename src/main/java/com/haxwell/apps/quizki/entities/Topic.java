@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Topic {
@@ -39,6 +41,7 @@ public class Topic {
     	this.text = str;
     }
     
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,
     			cascade = {CascadeType.PERSIST, CascadeType.MERGE},
     			mappedBy = "topics")
