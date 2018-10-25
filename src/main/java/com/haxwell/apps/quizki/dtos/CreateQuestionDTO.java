@@ -34,6 +34,7 @@ public class CreateQuestionDTO {
 	
 	private String description;
 	
+	//TODO: check for 0 here to indicate that the user has not explicitly set a type in this case send err
 	@NotNull
 	private int type;
 	
@@ -42,6 +43,7 @@ public class CreateQuestionDTO {
 	
 	private Set<@Size(min = 6, message = "Minimum 6 characters") String> references;
 	
+	//TODO: remove this validation since difficulty will default to the lowest level
 	@NotNull
 	private int difficulty;
 	

@@ -99,11 +99,21 @@ public class QuestionServiceImpl implements QuestionService {
 		this.question.setDescription(this.description);
 		this.outputDTO.setDescription(this.description);
 		
-		this.questionType = cqDTO.getType();		
-		if(this.questionType < 0 || this.questionType > 1) {
+		this.questionType = cqDTO.getType();
+		//frontend will send a 0 if the user has not selected a type
+		if(this.questionType == 0) {
 			
 			ValidationErrorData data = new ValidationErrorData();
-			data.addFieldError("type", "type.not.in.types");
+			data.addFieldError("type", "type.not.selected");
+			throw new CreateQuestionDTOException(data);
+			
+			
+		}
+		
+		if(this.questionType > 1) {
+			
+			ValidationErrorData data = new ValidationErrorData();
+			data.addFieldError("type", "type.not.valid");
 			throw new CreateQuestionDTOException(data);
 			
 			
