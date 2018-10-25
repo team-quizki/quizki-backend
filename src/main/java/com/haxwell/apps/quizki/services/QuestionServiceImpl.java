@@ -123,7 +123,7 @@ public class QuestionServiceImpl implements QuestionService {
 		this.outputDTO.setQuestionType(this.questionType);
 		
 		this.difficulty = cqDTO.getDifficulty();
-		if(this.difficulty < 0 || this.difficulty > 1) {
+		if(this.difficulty < 0 || this.difficulty > 5) {
 			
 			ValidationErrorData data = new ValidationErrorData();
 			data.addFieldError("difficulty", "difficulty.not.in.difficulties");
@@ -168,15 +168,15 @@ public class QuestionServiceImpl implements QuestionService {
 		this.topicStrings = cqDTO.getTopics();
 		for(String ts: this.topicStrings) {
 			aTopic = topicRepo.findByText(ts.toLowerCase());
-			//add existing topics to the set
+			
 			if(aTopic != null) {
 				this.question.addTopic(aTopic);
 			} else {
-				//or create new topics
+				
 				Topic newTopic = new Topic(ts.toLowerCase());
-				newTopic.setQuestions(setQuestions);				//add a Set of questions
-				newTopic.addQuestion(this.question);			//add this question to the set
-				this.question.addTopic(newTopic);			//then add it to the question's set
+				newTopic.setQuestions(setQuestions);				
+				newTopic.addQuestion(this.question);				
+				this.question.addTopic(newTopic);					
 			}
 		}
 		
@@ -195,15 +195,14 @@ public class QuestionServiceImpl implements QuestionService {
 			
 		}
 		
-		//save the question again after adding the topics and references
+		
 		this.savedQuestion = this.questionRepo.save(this.question);
 		
 		outputDTO.setId(this.savedQuestion.getId());
 		
 		outputDTO.setChoices(this.savedQuestion.getChoices());
-		//TODO: Topics have Questions that will be included in this object, there may need to be a TopicDTO without them
 		outputDTO.setTopics(this.savedQuestion.getTopics());
-		//TODO: References have Questions that will be included in this object, there may need to be a ReferenceDTO without them
+		
 		for(Reference r: this.savedQuestion.getReferences()) {
 			r.setText(HtmlUtils.htmlUnescape(r.getText()));
 		}

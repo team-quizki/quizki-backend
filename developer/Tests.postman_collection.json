@@ -948,7 +948,7 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "$2a$04$mtm6rLmZW/EnZ5NLNsX3eew1zD.2Ye57ZqX.3rYNkC/aQI.T00TKm",
+							"value": "password",
 							"type": "string"
 						},
 						{
@@ -1092,7 +1092,7 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "$2a$04$mtm6rLmZW/EnZ5NLNsX3eew1zD.2Ye57ZqX.3rYNkC/aQI.T00TKm",
+							"value": "password",
 							"type": "string"
 						},
 						{
@@ -1140,7 +1140,7 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "$2a$04$mtm6rLmZW/EnZ5NLNsX3eew1zD.2Ye57ZqX.3rYNkC/aQI.T00TKm",
+							"value": "password",
 							"type": "string"
 						},
 						{
@@ -1188,7 +1188,7 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "$2a$04$mtm6rLmZW/EnZ5NLNsX3eew1zD.2Ye57ZqX.3rYNkC/aQI.T00TKm",
+							"value": "password",
 							"type": "string"
 						},
 						{
@@ -1236,7 +1236,7 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "$2a$04$mtm6rLmZW/EnZ5NLNsX3eew1zD.2Ye57ZqX.3rYNkC/aQI.T00TKm",
+							"value": "password",
 							"type": "string"
 						},
 						{
@@ -1277,7 +1277,55 @@
 			"response": []
 		},
 		{
-			"name": "test createQuestion null type",
+			"name": "test createQuestion invalid type",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "johnathan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"userId\": 1,\n\"text\": \"To be or not to be, that is the question!\",\n\"description\": \"Testing create question endpoint\",\n\"type\": 2,\n\"topics\": [\"Shakespeare\", \"Existentialism\", \"Suicide\"],\n\"references\": [\"http://www.somesite.com/hamlet\", \"a plain text reference\"],\n\"difficulty\": 1,\n\"choices\": [{\"text\":\"To Be\", \"isCorrect\":true}, {\"text\":\"Not to be\", \"isCorrect\":false}]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/question",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"question"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test createQuestion 0 type",
 			"request": {
 				"auth": {
 					"type": "basic",
@@ -1332,7 +1380,7 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "$2a$04$mtm6rLmZW/EnZ5NLNsX3eew1zD.2Ye57ZqX.3rYNkC/aQI.T00TKm",
+							"value": "password",
 							"type": "string"
 						},
 						{
@@ -1373,14 +1421,14 @@
 			"response": []
 		},
 		{
-			"name": "test createQuestion invalid type",
+			"name": "test createQuestion difficulty out of range",
 			"request": {
 				"auth": {
 					"type": "basic",
 					"basic": [
 						{
 							"key": "password",
-							"value": "$2a$04$mtm6rLmZW/EnZ5NLNsX3eew1zD.2Ye57ZqX.3rYNkC/aQI.T00TKm",
+							"value": "password",
 							"type": "string"
 						},
 						{
@@ -1403,7 +1451,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\"userId\": 1,\n\"text\": \"To be or not to be, that is the question!\",\n\"description\": \"Testing create question endpoint\",\n\"type\": 2,\n\"topics\": [\"Shakespeare\", \"Existentialism\", \"Suicide\"],\n\"references\": [\"http://www.somesite.com/hamlet\", \"a plain text reference\"],\n\"difficulty\": 1,\n\"choices\": [{\"text\":\"To Be\", \"isCorrect\":true}, {\"text\":\"Not to be\", \"isCorrect\":false}]\n}"
+					"raw": "{\n\"userId\": 1,\n\"text\": \"To be or not to be, that is the question!\",\n\"description\": \"Testing create question endpoint\",\n\"type\": 1,\n\"topics\": [\"Shakespeare\", \"Existentialism\", \"Suicide\"],\n\"references\": [\"http://www.somesite.com/hamlet\", \"a plain text reference\"],\n\"difficulty\": 6,\n\"choices\": [{\"text\":\"To Be\", \"isCorrect\":true}, {\"text\":\"Not to be\", \"isCorrect\":false}]\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/question",

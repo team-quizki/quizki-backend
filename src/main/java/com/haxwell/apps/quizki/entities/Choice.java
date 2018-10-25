@@ -85,9 +85,7 @@ public class Choice {
 		this.sequence = sequence;
 	}
 
-//	public boolean isCorrect() {
-//		return isCorrect;
-//	}
+
 
 	public void setIsCorrect(boolean isCorrect) {
 		this.isCorrect = isCorrect;

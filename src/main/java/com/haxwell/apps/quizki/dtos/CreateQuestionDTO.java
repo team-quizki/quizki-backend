@@ -34,8 +34,7 @@ public class CreateQuestionDTO {
 	
 	private String description;
 	
-	//TODO: check for 0 here to indicate that the user has not explicitly set a type in this case send err
-	@NotNull
+	
 	private int type;
 	
 	@Size(min = 1, message = "Must have a Topic")
@@ -43,8 +42,6 @@ public class CreateQuestionDTO {
 	
 	private Set<@Size(min = 6, message = "Minimum 6 characters") String> references;
 	
-	//TODO: remove this validation since difficulty will default to the lowest level
-	@NotNull
 	private int difficulty;
 	
 	@Size(min = 2, message = "Minimum 2 choices")
@@ -52,7 +49,7 @@ public class CreateQuestionDTO {
 	
 	public CreateQuestionDTO(long userId, String text, String description, int type, Set<String> topics,
 			Set<String> references, int difficulty, Set<CreateChoiceDTO> choices) {
-//		super();
+
 		this.userId = userId;
 		this.text = text;
 		this.description = description;
