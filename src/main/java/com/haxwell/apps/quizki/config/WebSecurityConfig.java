@@ -49,11 +49,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic().authenticationEntryPoint(auth)
         	.and()
         	.authorizeRequests()
+    		.antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
     		.antMatchers(HttpMethod.POST, "/api/users").permitAll()
     		.antMatchers(HttpMethod.POST, "/api/users/isUnique").permitAll()
-    		.antMatchers(HttpMethod.OPTIONS, "/api/verifyCredentials").permitAll()
-    		.antMatchers(HttpMethod.OPTIONS, "/api/users/isUnique").permitAll()
-    		.antMatchers(HttpMethod.OPTIONS, "/api/question").permitAll()
     		.antMatchers(HttpMethod.GET, "/api/roles").permitAll()
 	    		// TODO: Handle login.. That should be open.
 	    		.antMatchers("/api/**").authenticated()
