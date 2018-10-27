@@ -71,4 +71,10 @@ public class RestErrorHandler {
 		return ex.getData();
 	}
 
+	@ExceptionHandler(CreateQuestionDTOException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public ValidationErrorData processCreateQuestionDTOException(CreateQuestionDTOException ex) {
+		return ex.getData();
+	}
 }

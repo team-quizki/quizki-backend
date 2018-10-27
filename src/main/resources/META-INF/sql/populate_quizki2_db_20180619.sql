@@ -68,6 +68,48 @@ INSERT INTO `user` VALUES (1,'johnathan','$2a$04$mtm6rLmZW/EnZ5NLNsX3eew1zD.2Ye5
 UNLOCK TABLES;
 
 --
+-- Table structure for table `question`
+--
+
+DROP TABLE IF EXISTS `question`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `question` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `text` varchar(10000) NOT NULL,
+  `description` varchar(125) NOT NULL,
+  `difficulty` tinyint(4) NOT NULL,
+  `question_type` tinyint(4) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_question_user_idx` (`user_id`),
+  CONSTRAINT `fk_question_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for `choice`
+--
+
+DROP TABLE IF EXISTS `choice`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `choice` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `text` varchar(10000) NOT NULL,
+  `sequence` bigint(20) NOT NULL,
+  `is_correct` bit NOT NULL,
+  `question_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_question_choice_idx` (`question_id`),
+  CONSTRAINT `fk_question_choice` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+
+--
 -- Table structure for table `topic`
 --
 
@@ -92,6 +134,32 @@ INSERT INTO `topic` VALUES (1, 'biology');
 UNLOCK TABLES;
 
 --
+-- Table structure for jointable `question_topic`
+--
+
+/*
+ * The keys in this join table should both be foreign keys!!!!
+ * see https://www.baeldung.com/hibernate-many-to-many
+ */
+
+
+DROP TABLE IF EXISTS `question_topic`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `question_topic` (
+  `question_id` bigint(20) NOT NULL,
+  `topic_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`question_id`, `topic_id`),
+  KEY `topic_id` (`topic_id`),
+  CONSTRAINT `question_topic_ibfk_1`
+   FOREIGN KEY (`question_id`) REFERENCES `question` (`id`),
+  CONSTRAINT `question_topic_ibfk_2`
+   FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
 -- Table structure for table `reference`
 --
 
@@ -114,6 +182,34 @@ LOCK TABLES `reference` WRITE;
 INSERT INTO `reference` VALUES (1, 'https://en.wikipedia.org/wiki/Biology');
 /*40000 ALTER TABLE `reference` ENABLE KEYST */;
 UNLOCK TABLES;
+
+--
+-- Table structure for jointable `question_reference`
+--
+
+/*
+ * The keys in this join table should both be foreign keys!!!!
+ * see https://www.baeldung.com/hibernate-many-to-many
+ */
+
+
+DROP TABLE IF EXISTS `question_reference`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `question_reference` (
+  `question_id` bigint(20) NOT NULL,
+  `reference_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`question_id`, `reference_id`),
+  KEY `reference_id` (`reference_id`),
+  CONSTRAINT `question_reference_ibfk_1`
+   FOREIGN KEY (`question_id`) REFERENCES `question` (`id`),
+  CONSTRAINT `question_reference_ibfk_2`
+   FOREIGN KEY (`reference_id`) REFERENCES `reference` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+
 
 --
 -- remove `user_user_role_map` from previous version
