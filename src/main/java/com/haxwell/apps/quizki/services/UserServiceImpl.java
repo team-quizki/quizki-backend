@@ -6,6 +6,7 @@ import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.haxwell.apps.quizki.dtos.CreatedUserDTO;
@@ -25,12 +26,15 @@ public class UserServiceImpl implements UserService {
 	private UserRepository uRepo;
 	@Autowired
 	private UserRoleRepository uroleRepo;
+	@Autowired
+	private PasswordEncoder pwdEncode;
 	
 	
-	public UserServiceImpl(UserRepository uRepo, UserRoleRepository uroleRepo) {
+	public UserServiceImpl(UserRepository uRepo, UserRoleRepository uroleRepo, PasswordEncoder pwdEncode) {
 
 		this.uRepo = uRepo;
 		this.uroleRepo = uroleRepo;
+		this.pwdEncode = pwdEncode;
 	}
 	
 	
@@ -68,7 +72,7 @@ public class UserServiceImpl implements UserService {
 		user.setDemographic("default");				//TODO remove
 		user.setEnabled(1);							//TODO remove
 		user.setFullname(ucdto.getFullname());
-		user.setPassword(ucdto.getPassword());
+		user.setPassword(pwdEncode.encode(ucdto.getPassword()));
 		user.setId(null);
 		
 		User savedusr = uRepo.save(user);
