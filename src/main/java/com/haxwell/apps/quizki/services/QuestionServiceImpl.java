@@ -239,7 +239,7 @@ public class QuestionServiceImpl implements QuestionService {
 		} else {
 			
 			ValidationErrorData data = new ValidationErrorData();
-			data.addFieldError("id", "question.id.not.found");
+			data.addFieldError("id", "question id not found");
 			throw new GetQuestionException(data);
 		}
 		
