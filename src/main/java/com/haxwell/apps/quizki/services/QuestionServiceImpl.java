@@ -214,9 +214,9 @@ public class QuestionServiceImpl implements QuestionService {
 		return outputDTO;
 	}
 	
-	public CreatedQuestionDTO getQuestionById(String ids) throws GetQuestionException {
+	public CreatedQuestionDTO getQuestionById(String idString) throws GetQuestionException {
 		
-		long id = Long.parseLong(ids);
+		long id = Long.parseLong(idString);
 		
 		outQuestion = questionRepo.findById(id);
 		
