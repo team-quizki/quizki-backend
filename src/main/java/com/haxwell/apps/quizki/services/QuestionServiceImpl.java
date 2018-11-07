@@ -18,6 +18,7 @@ import com.haxwell.apps.quizki.entities.Reference;
 import com.haxwell.apps.quizki.entities.Topic;
 import com.haxwell.apps.quizki.entities.User;
 import com.haxwell.apps.quizki.exceptions.CreateQuestionDTOException;
+import com.haxwell.apps.quizki.exceptions.GetQuestionException;
 import com.haxwell.apps.quizki.exceptions.ValidationErrorData;
 import com.haxwell.apps.quizki.repositories.QuestionRepository;
 import com.haxwell.apps.quizki.repositories.ReferenceRepository;
@@ -41,6 +42,7 @@ public class QuestionServiceImpl implements QuestionService {
 	
 	private Question question;
 	private Question savedQuestion;
+	private Optional<Question> outQuestion;
 	
 	@Autowired
 	private QuestionRepository questionRepo;
@@ -212,5 +214,37 @@ public class QuestionServiceImpl implements QuestionService {
 		return outputDTO;
 	}
 	
+	public CreatedQuestionDTO getQuestionById(String idString) throws GetQuestionException {
+		
+		long id = Long.parseLong(idString);
+		
+		outQuestion = questionRepo.findById(id);
+		
+		if(outQuestion.isPresent()) {
+			
+			outputDTO = new CreatedQuestionDTO();
+			question = outQuestion.get();
+			
+			outputDTO.setId(question.getId());
+			outputDTO.setUserId(question.getUser().getId());
+			outputDTO.setDescription(question.getDescription());
+			outputDTO.setText(question.getText());
+			outputDTO.setDifficulty(question.getDifficulty());
+			outputDTO.setQuestionType(question.getQuestionType());
+			outputDTO.setTopics(question.getTopics());
+			outputDTO.setReferences(question.getReferences());
+			outputDTO.setChoices(question.getChoices());
+			
+			
+		} else {
+			
+			ValidationErrorData data = new ValidationErrorData();
+			data.addFieldError("id", "question id not found");
+			throw new GetQuestionException(data);
+		}
+		
+		return outputDTO;
+		
+	}
 	
 }
