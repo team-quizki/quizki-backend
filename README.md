@@ -14,15 +14,14 @@ To run the backend you will need the following tools
 * Oracle [MySQL](https://www.mysql.com/)
 
 #### Linux
-Install the dependencies per the instructions for the given software package.
+Install the dependencies (above) per the instructions for the given software package.
 
 #### Windows
-Install the dependencies per the instructions for the given software package.
+Install the dependencies (above) per the instructions for the given software package.
 
 #### Mac
 These dependencies can be installed using the [Homebrew](https://brew.sh/) package manager for macOS.
 * Maven `$ brew install maven`
-* Tomcat `$ brew install tomcat`
 * MySQL `$ brew install mysql`
 
 ### Installation
