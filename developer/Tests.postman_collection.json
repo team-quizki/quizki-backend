@@ -1538,7 +1538,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/verifyCredentials",
+					"raw": "http://localhost:8080/api/question/20?",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1546,7 +1546,127 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"verifyCredentials"
+						"question",
+						"20"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "21",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetQuestionByID with valid ID",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "plaintext",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "curly",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/question/20?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"question",
+						"20"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "21",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetQuestionById with invalid ID",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "plaintext",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "curly",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/question/10?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"question",
+						"10"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "21",
+							"disabled": true
+						}
 					]
 				}
 			},
