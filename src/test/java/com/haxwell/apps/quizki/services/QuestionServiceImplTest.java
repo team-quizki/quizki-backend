@@ -8,10 +8,16 @@ import org.mockito.stubbing.Answer;
 import org.springframework.web.util.HtmlUtils;
 
 import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.any;
+//Note this import added to avoid "any" naming collision in Mockito and Hamcrest Matchers see https://github.com/mockito/mockito/issues/1311
 
 import java.util.Optional;
 import java.util.Set;
+
+
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -52,6 +58,23 @@ public class QuestionServiceImplTest {
 	static Set<String> dtoRefs;
 	static Set<CreateChoiceDTO> dtoChoices;
 	
+	static String topicStr1 = "topic1";
+	static String topicStr2 = "topic2";
+	
+	static String refStr1 = "reference1";
+	static String refStr2 = "reference2";
+	
+	static String text = "question text";
+	static String description = "question description";
+	
+	static long userId = 1;
+	static int type = 1;
+	static int difficulty = 1;
+	
+	static CreateChoiceDTO choiceDTO1T = new CreateChoiceDTO("choice1",true);
+	static CreateChoiceDTO choiceDTO2F = new CreateChoiceDTO("choice2", false);
+	
+	
 	@Mock
 	private QuestionRepository questionRepo;
 	
@@ -75,29 +98,16 @@ public class QuestionServiceImplTest {
 		
 		CreateQuestionDTO inputDTO;
 		
-		String topic1 = "topic1";
-		String topic2 = "topic2";
-		dtoTopics.add(topic1);
-		dtoTopics.add(topic2);
+		dtoTopics.add(topicStr1);
+		dtoTopics.add(topicStr2);
 		
-		String ref1 = "reference1";
-		String ref2 = "reference2";
-		dtoRefs.add(ref1);
-		dtoRefs.add(ref2);
-		
-		CreateChoiceDTO choiceDTO1T = new CreateChoiceDTO("choice1",true);
-		CreateChoiceDTO choiceDTO2F = new CreateChoiceDTO("choice2", false);
+		dtoRefs.add(refStr1);
+		dtoRefs.add(refStr2);
+
 		dtoChoices.add(choiceDTO1T);
 		dtoChoices.add(choiceDTO2F);
-		
-		String text = "question text";
-		String desc = "question description";
-		
-		long userId = 1;
-		int type = 1;
-		int difficulty = 1;
-		
-		inputDTO = new CreateQuestionDTO(userId, text, desc, type, dtoTopics, dtoRefs, difficulty, dtoChoices);
+	
+		inputDTO = new CreateQuestionDTO(userId, text, description, type, dtoTopics, dtoRefs, difficulty, dtoChoices);
 		
 		return inputDTO;
 	}
@@ -109,8 +119,6 @@ public class QuestionServiceImplTest {
 		assertNotNull(refRepo);
 		assertNotNull(userRepo);
 	}
-	
-	
 	
 	
 	@Test
@@ -126,29 +134,28 @@ public class QuestionServiceImplTest {
 		String fullname = "Johnathan James";
 		String email = "jjames@somewhere.com";
 		String demographic = "default";
-		long id = 1;
-		
+		long uId = 2;
 		
 		
 		user = new User(uRole, name, password, fullname, email, demographic);
-		user.setId(1l);
+		user.setId(uId);
 		
-		topic1 = new Topic("topic1");
+		topic1 = new Topic(topicStr1);
 		topic1.setId(1l);
-		//TODO: determine if topic1.questions needs to be populated for testing
+
 		
-		reference1 = new Reference("reference1");
+		reference1 = new Reference(refStr1);
 		reference1.setId(1l);
 		
 		Optional<User> userOpt = Optional.of(user);
 	
-		when(userRepo.findById(id)).thenReturn(userOpt);
+		when(userRepo.findById(uId)).thenReturn(userOpt);
 		
-		when(topicRepo.findByText("topic1")).thenReturn(topic1);
-		when(topicRepo.findByText("topic2")).thenReturn(null);
+		when(topicRepo.findByText(topicStr1)).thenReturn(topic1);
+		when(topicRepo.findByText(topicStr2)).thenReturn(null);
 		
-		when(refRepo.findByText("reference1")).thenReturn(reference1);
-		when(refRepo.findByText("reference2")).thenReturn(null);
+		when(refRepo.findByText(refStr1)).thenReturn(reference1);
+		when(refRepo.findByText(refStr2)).thenReturn(null);
 		
 		//Stubbing the save method inserts ID value 2 in the (null) Topics & Refs and sets ids in Question parameter & choices
 		//to emulate JPA cascading in the returned Question
@@ -185,21 +192,25 @@ public class QuestionServiceImplTest {
 		
 		CreatedQuestionDTO outputDTO = qsImpl.createQuestion(inputDTO);
 		
-		verify(userRepo).findById(id);
-		verify(topicRepo).findByText("topic1");
-		verify(topicRepo).findByText("topic2");
-		verify(refRepo).findByText("reference1");
-		verify(refRepo).findByText("reference2");
+		verify(userRepo).findById(uId);
+		verify(topicRepo).findByText(topicStr1);
+		verify(topicRepo).findByText(topicStr2);
+		verify(refRepo).findByText(refStr1);
+		verify(refRepo).findByText(refStr2);
 		verify(questionRepo).save(any(Question.class));
 		
+		//TODO: assert that the outputDTO has the correct properties
 		
+		assertThat(outputDTO.getId(), equalTo(1l));
+		assertThat(outputDTO.getUserId(), equalTo(uId));
+		assertThat(outputDTO.getText(), equalTo(text));
+		assertThat(outputDTO.getDescription(), equalTo(description));
+		assertThat(outputDTO.getQuestionType(), equalTo(type));
+		assertThat(outputDTO.getDifficulty(), equalTo(difficulty));
 		
-		
-		
-		
-		
-		
-		
+		assertThat(outputDTO.getChoices(), hasSize(2));
+		assertThat(outputDTO.getTopics(), hasSize(2));
+		assertThat(outputDTO.getReferences(), hasSize(2));
 		
 	}
 
