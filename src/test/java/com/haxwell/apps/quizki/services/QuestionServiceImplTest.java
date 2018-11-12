@@ -33,6 +33,7 @@ import com.haxwell.apps.quizki.entities.Topic;
 import com.haxwell.apps.quizki.entities.User;
 import com.haxwell.apps.quizki.entities.UserRole;
 import com.haxwell.apps.quizki.exceptions.CreateQuestionDTOException;
+import com.haxwell.apps.quizki.exceptions.GetQuestionException;
 import com.haxwell.apps.quizki.repositories.QuestionRepository;
 import com.haxwell.apps.quizki.repositories.ReferenceRepository;
 import com.haxwell.apps.quizki.repositories.TopicRepository;
@@ -48,16 +49,20 @@ public class QuestionServiceImplTest {
 	Topic topic1;
 	Reference reference1;
 	Choice choice;
-	User user;
-	UserRole uRole;
-	Question question;
+	static User user;
+	static UserRole uRole;
+	static Question question;
 	
-	String role1 = "QUIZKI_USER_ROLE_ADMIN";
-	String role2 = "QUIZKI_USER_ROLE_USER";
+	static String role1 = "QUIZKI_USER_ROLE_ADMIN";
+	static String role2 = "QUIZKI_USER_ROLE_USER";
 	
 	static Set<String> dtoTopics = new HashSet<String>();
 	static Set<String> dtoRefs = new HashSet<String>();
 	static Set<CreateChoiceDTO> dtoChoices = new HashSet<CreateChoiceDTO>();
+	
+	static Set<Topic> topics = new HashSet<Topic>();
+	static Set<Reference> references = new HashSet<Reference>();
+	static Set<Choice> choices = new HashSet<Choice>();
 	
 	static String topicStr1 = "topic1";
 	static String topicStr2 = "topic2";
@@ -112,6 +117,36 @@ public class QuestionServiceImplTest {
 		
 		return inputDTO;
 	}
+	
+	private static Question getQuestion(long id) {
+		
+		uRole = new UserRole(role1);
+		uRole.setId(1);
+		
+		String name = "Johnathan";
+		String password = "password";
+		String fullname = "Johnathan James";
+		String email = "jjames@somewhere.com";
+		String demographic = "default";
+		
+		user = new User(uRole, name, password, fullname, email, demographic);
+		user.setId(userId);
+		
+		
+		topics.add(new Topic(1l, topicStr1));
+		references.add(new Reference(1l, refStr1));
+		choices.add(new Choice(1l, choiceDTO1T.getText(), 1, choiceDTO1T.getIsCorrect()));
+		
+		
+		Question outputQuestion = new Question(id, user, description, text, difficulty, type,
+				references, topics, choices);
+		
+		return outputQuestion;
+		
+	}
+	
+	
+	
 	
 	@Test
 	public void mockCreationTest() {
@@ -218,6 +253,25 @@ public class QuestionServiceImplTest {
 		assertThat(outputDTO.getChoices(), hasSize(2));
 		assertThat(outputDTO.getTopics(), hasSize(2));
 		assertThat(outputDTO.getReferences(), hasSize(2));
+		
+	}
+	
+	@Test
+	public void getQuestionByIdTest() {
+		
+		question = getQuestion(1l);
+		
+		Optional<Question> inQuestionOpt = Optional.of(question);
+		
+		when(questionRepo.findById(1l)).thenReturn(inQuestionOpt);
+		
+		try {
+			outputDTO = qsImpl.getQuestionById(Long.toString(1l));
+		} catch (GetQuestionException e) {
+			System.out.println(e.getLocalizedMessage());
+		}
+		
+		assertThat(outputDTO.getId(), equalTo(1l));
 		
 	}
 
