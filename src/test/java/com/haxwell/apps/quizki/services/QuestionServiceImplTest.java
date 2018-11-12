@@ -11,6 +11,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.BDDMockito.any;
 //Note this import added to avoid "any" naming collision in Mockito and Hamcrest Matchers see https://github.com/mockito/mockito/issues/1311
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -54,9 +55,9 @@ public class QuestionServiceImplTest {
 	String role1 = "QUIZKI_USER_ROLE_ADMIN";
 	String role2 = "QUIZKI_USER_ROLE_USER";
 	
-	static Set<String> dtoTopics;
-	static Set<String> dtoRefs;
-	static Set<CreateChoiceDTO> dtoChoices;
+	static Set<String> dtoTopics = new HashSet<String>();
+	static Set<String> dtoRefs = new HashSet<String>();
+	static Set<CreateChoiceDTO> dtoChoices = new HashSet<CreateChoiceDTO>();
 	
 	static String topicStr1 = "topic1";
 	static String topicStr2 = "topic2";
@@ -126,6 +127,8 @@ public class QuestionServiceImplTest {
 		
 		CreateQuestionDTO inputDTO = getBaseInputDTO();
 		
+		CreatedQuestionDTO outputDTO = null;
+		
 		uRole = new UserRole(role1);
 		uRole.setId(1);
 		
@@ -134,11 +137,11 @@ public class QuestionServiceImplTest {
 		String fullname = "Johnathan James";
 		String email = "jjames@somewhere.com";
 		String demographic = "default";
-		long uId = 2;
+		
 		
 		
 		user = new User(uRole, name, password, fullname, email, demographic);
-		user.setId(uId);
+		user.setId(userId);
 		
 		topic1 = new Topic(topicStr1);
 		topic1.setId(1l);
@@ -149,7 +152,7 @@ public class QuestionServiceImplTest {
 		
 		Optional<User> userOpt = Optional.of(user);
 	
-		when(userRepo.findById(uId)).thenReturn(userOpt);
+		when(userRepo.findById(userId)).thenReturn(userOpt);
 		
 		when(topicRepo.findByText(topicStr1)).thenReturn(topic1);
 		when(topicRepo.findByText(topicStr2)).thenReturn(null);
@@ -187,22 +190,26 @@ public class QuestionServiceImplTest {
             }
         });
 		
+		assertNotNull(qsImpl);
+		
+		try {
+			outputDTO = qsImpl.createQuestion(inputDTO);
+		} catch (CreateQuestionDTOException e) {
+			System.out.println("!!!!!!!!!!!!!!!!------>>>>>" + e.getMessage());
+		}
 		
 		
-		
-		CreatedQuestionDTO outputDTO = qsImpl.createQuestion(inputDTO);
-		
-		verify(userRepo).findById(uId);
+		verify(userRepo).findById(userId);
 		verify(topicRepo).findByText(topicStr1);
 		verify(topicRepo).findByText(topicStr2);
 		verify(refRepo).findByText(refStr1);
 		verify(refRepo).findByText(refStr2);
 		verify(questionRepo).save(any(Question.class));
 		
-		//TODO: assert that the outputDTO has the correct properties
+
 		
 		assertThat(outputDTO.getId(), equalTo(1l));
-		assertThat(outputDTO.getUserId(), equalTo(uId));
+		assertThat(outputDTO.getUserId(), equalTo(userId));
 		assertThat(outputDTO.getText(), equalTo(text));
 		assertThat(outputDTO.getDescription(), equalTo(description));
 		assertThat(outputDTO.getQuestionType(), equalTo(type));
