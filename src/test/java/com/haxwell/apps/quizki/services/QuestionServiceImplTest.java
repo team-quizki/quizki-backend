@@ -230,7 +230,7 @@ public class QuestionServiceImplTest {
 		try {
 			outputDTO = qsImpl.createQuestion(inputDTO);
 		} catch (CreateQuestionDTOException e) {
-			System.out.println("!!!!!!!!!!!!!!!!------>>>>>" + e.getMessage());
+			fail("createQuestion failed");
 		}
 		
 		
@@ -268,7 +268,7 @@ public class QuestionServiceImplTest {
 		try {
 			outputDTO = qsImpl.getQuestionById(Long.toString(1l));
 		} catch (GetQuestionException e) {
-			System.out.println(e.getLocalizedMessage());
+			fail("getQuestionById failed");
 		}
 		
 		assertThat(outputDTO.getId(), equalTo(1l));
