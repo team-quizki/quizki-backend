@@ -76,6 +76,12 @@ public class Reference {
     	
     }
     
+    public Reference(long id, String text) {
+    	this.id = id;
+    	this.text = text;
+    	this.questions = new HashSet<Question>();
+    }
+    
     @Override
     public int hashCode() {
         return id == null ? 0 : id.hashCode();

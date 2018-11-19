@@ -55,6 +55,23 @@ public class Question {
 		
 	}
 
+	
+
+	public Question(long id, User user, String description, String text, int difficulty, int questionType,
+			Set<Reference> references, Set<Topic> topics, Set<Choice> choices) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.description = description;
+		this.text = text;
+		this.difficulty = difficulty;
+		this.questionType = questionType;
+		this.references = references;
+		this.topics = topics;
+		this.choices = choices;
+	}
+
+
 
 	public long getId() {
 		return id;
