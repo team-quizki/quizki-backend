@@ -78,6 +78,12 @@ public class Topic {
     	
     }
     
+    public Topic(long id, String text) {
+    	this.text = text;
+    	this.id = id;
+    	this.questions = new HashSet<Question>();
+    }
+    
     @Override
     public int hashCode() {
         return id == null ? 0 : id.hashCode();
