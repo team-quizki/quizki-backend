@@ -31,19 +31,27 @@ These dependencies can be installed using the [Homebrew](https://brew.sh/) packa
 * MySQL `$ brew install mysql`
 
 ### Installation
-You will need to fork the [team-quizki/quizki-backend repository](https://github.com/team-quizki/quizki-backend). Then clone your new fork to your local computer, and configure the cloned copy on your computer. You can follow these [instruction on Github](https://help.github.com/articles/fork-a-repo/). To summarize this instruction: 
-  1. On GitHub fork the [team-quizki/quizki-backend](https://github.com/team-quizki/quizki-backend) repository.
-  2. Using Git Bash or Git CMD clone your newly forked repository to your local computer:
-   `$ git clone https://github.com/<<UseYourGitHubHandleHere>>/quizki-backend.git`
-  3. Change to the quizki-backend directory. 
-  `$ cd quizki-backend`
-  4. Configure your local quizki-backend to use remote upstream. 
-  `$ git remote -v` to verify origin is set
-  `$ git remote add upstream hhttps://github.com/team-quizki/quizki-backend`  
-  `$ git remote -v` to verify upstream is set correctly
-  5. Confingure your user email and name if git was newly installed.
-  `$ git config --global user.email "yourEmail@example.com"` to set your email
-  `$ git config --global user.name "Your Name"` to set your name
+You will need to fork the [team-quizki/quizki-backend repository](https://github.com/team-quizki/quizki-backend), then clone your new fork to your local computer, and configure the cloned copy on your computer. You can follow these [instruction on Github](https://help.github.com/articles/fork-a-repo/). To summarize this instruction: 
+
+- On GitHub fork the [team-quizki/quizki-backend](https://github.com/team-quizki/quizki-backend) repository.
+
+- Using Git Bash or Git CMD clone your newly forked repository to your local computer:
+    `$ git clone https://github.com/<<UseYourGitHubHandleHere>>/quizki-backend.git`
+
+- Change to the quizki-backend directory. 
+    `$ cd quizki-backend`
+    
+- Configure your local quizki-backend to use remote upstream. 
+    `$ git remote add upstream hhttps://github.com/team-quizki/quizki-backend`  
+    
+- Verify upstream set correctly
+    `$ git remote -v`
+    
+- Configure your user email to prepare for commit
+    `$ git config --global user.email "yourEmail@example.com"` 
+    
+- Configure your name email to prepare for commit
+    `$ git config --global user.name "Your Name"` 
   
 
 ### Initializing the Database
