@@ -46,10 +46,11 @@ You will need to fork the [team-quizki/quizki-backend repository](https://github
     
 - Check remote origin and upstream looks similar to the following.
     `$ git remote -v`
-    `origin  https://github.com/FrauDeborah/quizki-backend.git (fetch)`
-    `origin  https://github.com/FrauDeborah/quizki-backend.git (push)`
-    `upstream  https://github.com/team-quizki/quizki-backend.git (fetch)`
-    `upstream  https://github.com/team-quizki/quizki-backend.git (push)`
+    
+    > origin  https://github.com/FrauDeborah/quizki-backend.git (fetch)
+    > origin  https://github.com/FrauDeborah/quizki-backend.git (push)
+    > upstream  https://github.com/team-quizki/quizki-backend.git (fetch)
+    > upstream  https://github.com/team-quizki/quizki-backend.git (push)
    
     
 - Configure your user email to prepare for commit
