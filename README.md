@@ -44,8 +44,13 @@ You will need to fork the [team-quizki/quizki-backend repository](https://github
 - Configure your local quizki-backend to use remote upstream. 
     `$ git remote add upstream hhttps://github.com/team-quizki/quizki-backend`  
     
-- Verify upstream set correctly
+- Check remote origin and upstream looks similar to the following.
     `$ git remote -v`
+    `origin  https://github.com/FrauDeborah/quizki-backend.git (fetch)`
+    `origin  https://github.com/FrauDeborah/quizki-backend.git (push)`
+    `upstream  https://github.com/team-quizki/quizki-backend.git (fetch)`
+    `upstream  https://github.com/team-quizki/quizki-backend.git (push)`
+   
     
 - Configure your user email to prepare for commit
     `$ git config --global user.email "yourEmail@example.com"` 
