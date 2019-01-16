@@ -5,14 +5,14 @@ import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import com.haxwell.apps.quizki.entities.Question;
 
-//TODO: implement pagination here and in the service layer
 
 @Repository
-public interface QuestionRepository extends CrudRepository<Question, Long> {
+public interface QuestionRepository extends PagingAndSortingRepository<Question, Long> {
 	Set<Question> findByUserId(long userId);
 
 }

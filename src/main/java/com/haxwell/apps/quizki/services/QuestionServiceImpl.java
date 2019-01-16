@@ -1,11 +1,15 @@
 package com.haxwell.apps.quizki.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
@@ -38,11 +42,13 @@ public class QuestionServiceImpl implements QuestionService {
 	private Set<String> topicStrings = new HashSet<String>();
 	
 	private CreatedQuestionDTO outputDTO;
+	private ArrayList<CreatedQuestionDTO> outputDTOs;
 	private Set<CreateChoiceDTO> choiceDTOs;
 	
 	private Question question;
 	private Question savedQuestion;
 	private Optional<Question> outQuestion;
+	private Page<Question> questions;
 	
 	@Autowired
 	private QuestionRepository questionRepo;
@@ -244,6 +250,60 @@ public class QuestionServiceImpl implements QuestionService {
 		}
 		
 		return outputDTO;
+		
+	}
+	
+	
+	/*
+	URL: /api/question?page=1&size=10
+			URL: /api/question?page=1 (size defaults to 10)
+			URL: /api/question?size=10 (page defaults to 1)
+			URL: /api/question (page and size are default)
+
+			Method: GET
+
+			Returns an array of CreatedQuestionDTO of length <= size starting from (page - 1|1) * size + 1
+			
+			NOTE: in Pageable page is 0 indexed!!!
+	
+	*/
+	public ArrayList<CreatedQuestionDTO> getQuestions(int page, int size) throws GetQuestionException {
+	
+		Pageable pageable = null;
+		
+		outputDTOs = new ArrayList<CreatedQuestionDTO>();
+		
+		long qs = questionRepo.count();
+		
+		if(page * size <= qs) {								//TODO: resolve index conflict page is 0 based in Pageable and 1 based for this issue
+			pageable = PageRequest.of(page, size); 		
+		} else {
+			//TODO: throw an exception here?
+//			ValidationErrorData data = new ValidationErrorData();
+//			data.addFieldError("page|size", "request out of range");
+//			throw new GetQuestionException(data);
+		}
+			
+		questions = questionRepo.findAll(pageable);
+		
+		for(Question q : questions) {
+			
+			outputDTO = new CreatedQuestionDTO();
+			
+			outputDTO.setId(q.getId());
+			outputDTO.setUserId(q.getUser().getId());
+			outputDTO.setDescription(q.getDescription());
+			outputDTO.setText(q.getText());
+			outputDTO.setDifficulty(q.getDifficulty());
+			outputDTO.setQuestionType(q.getQuestionType());
+			outputDTO.setTopics(q.getTopics());
+			outputDTO.setReferences(q.getReferences());
+			outputDTO.setChoices(q.getChoices());
+			
+			outputDTOs.add(outputDTO);
+		}
+
+		return outputDTOs;
 		
 	}
 	
