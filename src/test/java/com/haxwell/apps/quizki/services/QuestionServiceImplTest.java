@@ -5,6 +5,9 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.exceptions.base.MockitoException;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.util.HtmlUtils;
 
 import static org.mockito.Mockito.*;
@@ -12,6 +15,7 @@ import static org.mockito.BDDMockito.any;
 //Note this import added to avoid "any" naming collision in Mockito and Hamcrest Matchers see https://github.com/mockito/mockito/issues/1311
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -52,6 +56,7 @@ public class QuestionServiceImplTest {
 	static User user;
 	static UserRole uRole;
 	static Question question;
+	List<Question> questions;
 	
 	static String role1 = "QUIZKI_USER_ROLE_ADMIN";
 	static String role2 = "QUIZKI_USER_ROLE_USER";
@@ -145,6 +150,41 @@ public class QuestionServiceImplTest {
 		
 	}
 	
+	private static String appendInt(String s, int x) {
+		return s + Integer.toString(x);
+	}
+	
+	private List<Question> getQuestions(int n){
+		
+		uRole = new UserRole(role1);
+		uRole.setId(1);
+		
+		String name = "Johnathan";
+		String password = "password";
+		String fullname = "Johnathan James";
+		String email = "jjames@somewhere.com";
+		String demographic = "default";
+		user = new User(uRole, name, password, fullname, email, demographic);
+		user.setId(userId);
+		
+		topics.add(new Topic(1l, topicStr1));
+		references.add(new Reference(1l, refStr1));
+		choices.add(new Choice(1l, choiceDTO1T.getText(), 1, choiceDTO1T.getIsCorrect()));
+		
+		for(int i = 1; i <= n; ++i) {
+			questions.add(new Question((long) i, user, appendInt(description, i), appendInt(text, i), difficulty, type,
+					references, topics, choices));
+		}
+		return questions;
+	}
+	
+	private Page<Question> getPage(List<Question> ql, Pageable pgabl) {
+		
+		Page<Question> page = new PageImpl<Question>(ql, pgabl, ql.size());
+		
+		return page;
+		
+	}
 	
 	
 	

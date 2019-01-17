@@ -275,10 +275,10 @@ public class QuestionServiceImpl implements QuestionService {
 		
 		long qs = questionRepo.count();
 		
-		if(page * size <= qs) {								//TODO: resolve index conflict page is 0 based in Pageable and 1 based for this issue
-			pageable = PageRequest.of(page, size); 		
+		if((page - 1) * size <= qs) {								
+			pageable = PageRequest.of((page - 1), size); 		
 		} else {
-			//TODO: throw an exception here?
+			return outputDTOs;		//return the empty array if no data exists
 //			ValidationErrorData data = new ValidationErrorData();
 //			data.addFieldError("page|size", "request out of range");
 //			throw new GetQuestionException(data);
