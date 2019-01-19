@@ -289,8 +289,6 @@ public class QuestionServiceImpl implements QuestionService {
 			outputDTO.setReferences(q.getReferences());
 			outputDTO.setChoices(q.getChoices());
 			
-			System.out.println(outputDTO.toString());
-			
 			outputDTOs.add(outputDTO);
 		}); 
 
