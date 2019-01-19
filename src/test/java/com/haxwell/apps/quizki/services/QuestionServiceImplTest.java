@@ -185,10 +185,23 @@ public class QuestionServiceImplTest {
 	}
 	
 	private Page<Question> getPageQuestions(List<Question> ql, Pageable pgr ) {
-
-		Page<Question> pageQuestions = new PageImpl<Question>(ql, pgr, pgr.getPageSize());
 		
-		System.out.println("getPageQuestions creates pageQuestions.size: " + pageQuestions.getSize() + " .getTotalElements: " + pageQuestions.getTotalElements());
+		int pgn = pgr.getPageNumber();
+		int pgsz = pgr.getPageSize();
+		
+		int strt = pgn * pgsz;
+		int fin = strt + pgsz - 1;
+		
+		fin = Math.min(fin,ql.size() - 1);
+		
+		
+		List<Question> subql = new ArrayList<>();
+		
+		for(int i = strt; i <= fin; ++i) {
+			subql.add(ql.get(i));
+		}
+
+		Page<Question> pageQuestions = new PageImpl<Question>(subql, pgr, pgr.getPageSize());
 		
 		return pageQuestions;
 		
@@ -349,8 +362,6 @@ public class QuestionServiceImplTest {
             	
             	Pageable pageRequest = invocation.getArgument(0);
             	
-            	System.out.println("------->>>>>In mock for #findall parameter passed in PageRequest page: " + pageRequest.getPageNumber() + " size: " + pageRequest.getPageSize());
-
                 return getPageQuestions(questions, pageRequest);
             }
         });
