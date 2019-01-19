@@ -160,6 +160,8 @@ public class QuestionServiceImplTest {
 	
 	private List<Question> getQuestions(int n){
 		
+		questions = new ArrayList<Question>();
+		
 		uRole = new UserRole(role1);
 		uRole.setId(1);
 		
@@ -184,7 +186,9 @@ public class QuestionServiceImplTest {
 	
 	private Page<Question> getPageQuestions(List<Question> ql, Pageable pgr ) {
 
-		Page<Question> pageQuestions = new PageImpl<Question>(ql, pgr, ql.size());
+		Page<Question> pageQuestions = new PageImpl<Question>(ql, pgr, pgr.getPageSize());
+		
+		System.out.println("getPageQuestions creates pageQuestions.size: " + pageQuestions.getSize() + " .getTotalElements: " + pageQuestions.getTotalElements());
 		
 		return pageQuestions;
 		
@@ -342,7 +346,10 @@ public class QuestionServiceImplTest {
 			 
             public Page<Question> answer(InvocationOnMock invocation) throws Throwable {
                 
+            	
             	Pageable pageRequest = invocation.getArgument(0);
+            	
+            	System.out.println("------->>>>>In mock for #findall parameter passed in PageRequest page: " + pageRequest.getPageNumber() + " size: " + pageRequest.getPageSize());
 
                 return getPageQuestions(questions, pageRequest);
             }

@@ -272,7 +272,12 @@ public class QuestionServiceImpl implements QuestionService {
 			
 		questions = questionRepo.findAll(pageable);
 		
-		for(Question q : questions) {
+		System.out.println("Mock questionRepo.findAll returned <Page>questions.getSize: " + questions.getSize() + " .getTotalElements: " + questions.getTotalElements());
+		
+		outputDTOs.clear();
+		
+		
+		for(Question q : questions.getContent()) {		//TODO: <----- <Page>questions here has a size of 10!!!!
 			
 			outputDTO = new CreatedQuestionDTO();
 			
@@ -289,6 +294,16 @@ public class QuestionServiceImpl implements QuestionService {
 			outputDTOs.add(outputDTO);
 		}
 
+		System.out.println("After DTO creation loop outputDTOs size: " + outputDTOs.size()); //<------- but outputDTOs has a size of 17!!!!
+		
+		/*TODO: QuestionServiceImplTest mocks questionRepo.findAll(pageable) (lines 345-356) and the log shows that questions has a size of 10
+		 * 		but the for loop above produces an ArrayList of size 17!!!! WTF???
+		 */
+		
+		
+		
+		
+		
 		return outputDTOs;
 		
 	}
