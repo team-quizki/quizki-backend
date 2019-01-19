@@ -254,19 +254,6 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 	
 	
-	/*
-	URL: /api/question?page=1&size=10
-			URL: /api/question?page=1 (size defaults to 10)
-			URL: /api/question?size=10 (page defaults to 1)
-			URL: /api/question (page and size are default)
-
-			Method: GET
-
-			Returns an array of CreatedQuestionDTO of length <= size starting from (page - 1|1) * size + 1
-			
-			NOTE: in Pageable page is 0 indexed!!!
-	
-	*/
 	public ArrayList<CreatedQuestionDTO> getQuestions(int page, int size) throws GetQuestionException {
 	
 		Pageable pageable = null;
@@ -275,13 +262,12 @@ public class QuestionServiceImpl implements QuestionService {
 		
 		long qs = questionRepo.count();
 		
-		if((page - 1) * size <= qs) {								
-			pageable = PageRequest.of((page - 1), size); 		
+		if((page - 1) * size <= qs) {
+			
+			pageable = PageRequest.of((page - 1), size);
+			
 		} else {
 			return outputDTOs;		//return the empty array if no data exists
-//			ValidationErrorData data = new ValidationErrorData();
-//			data.addFieldError("page|size", "request out of range");
-//			throw new GetQuestionException(data);
 		}
 			
 		questions = questionRepo.findAll(pageable);
