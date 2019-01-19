@@ -272,7 +272,7 @@ public class QuestionServiceImpl implements QuestionService {
 			
 		questions = questionRepo.findAll(pageable);
 		
-		System.out.println("Mock questionRepo.findAll returned <Page>questions.getSize: " + questions.getSize() + " .getTotalElements: " + questions.getTotalElements());
+		System.out.println("Mock questionRepo.findAll returned <Page>questions.getSize: " + questions.getSize() + " .getNumberOfElements: " + questions.getNumberOfElements());
 		
 		outputDTOs.clear();
 		
@@ -290,6 +290,8 @@ public class QuestionServiceImpl implements QuestionService {
 			outputDTO.setTopics(q.getTopics());
 			outputDTO.setReferences(q.getReferences());
 			outputDTO.setChoices(q.getChoices());
+			
+			System.out.println(outputDTO.toString());
 			
 			outputDTOs.add(outputDTO);
 		}); 

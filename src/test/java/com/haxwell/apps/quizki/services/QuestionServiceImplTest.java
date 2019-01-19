@@ -337,7 +337,7 @@ public class QuestionServiceImplTest {
 		 * parameters are passed to getQuestions() as received by the controller with defaults
 		 */
 		
-		int n = 17;
+		int n = 17;		//TODO: refactor the magic numbers in the assertions based on this value
 		questions = getQuestions(n);
 		
 		when(questionRepo.count()).thenReturn((long)n);
