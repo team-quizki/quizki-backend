@@ -48,7 +48,7 @@ public class QuestionServiceImpl implements QuestionService {
 	private Question question;
 	private Question savedQuestion;
 	private Optional<Question> outQuestion;
-	private Page<Question> questions;
+	
 	
 	@Autowired
 	private QuestionRepository questionRepo;
@@ -270,7 +270,7 @@ public class QuestionServiceImpl implements QuestionService {
 			return outputDTOs;		//return the empty array if no data exists
 		}
 			
-		questions = questionRepo.findAll(pageable);
+		Page<Question> questions = questionRepo.findAll(pageable);
 		
 		outputDTOs.clear();
 		
