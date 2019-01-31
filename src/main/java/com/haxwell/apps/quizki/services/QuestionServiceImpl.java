@@ -43,7 +43,7 @@ public class QuestionServiceImpl implements QuestionService {
 	private Set<String> topicStrings = new HashSet<String>();
 	
 	private CreatedQuestionDTO outputDTO;
-	private ArrayList<CreatedQuestionDTO> outputDTOs;
+	
 	private Set<CreateChoiceDTO> choiceDTOs;
 	
 	private Question question;
@@ -259,7 +259,7 @@ public class QuestionServiceImpl implements QuestionService {
 	
 		Pageable pageable = null;
 		
-		outputDTOs = new ArrayList<CreatedQuestionDTO>();
+		ArrayList<CreatedQuestionDTO> outputDTOs = new ArrayList<CreatedQuestionDTO>();
 		
 		long qs = questionRepo.count();
 		
@@ -273,7 +273,7 @@ public class QuestionServiceImpl implements QuestionService {
 			
 		Page<Question> questions = questionRepo.findAll(pageable);
 		
-		outputDTOs.clear();
+		outputDTOs.clear();	//TODO make local
 		
 		
 		questions.forEach(q -> {		

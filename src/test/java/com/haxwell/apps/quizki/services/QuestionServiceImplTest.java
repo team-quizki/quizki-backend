@@ -350,7 +350,7 @@ public class QuestionServiceImplTest {
 		 * parameters are passed to getQuestions() as received by the controller with defaults
 		 */
 		
-		int n = 17;		//TODO: refactor the magic numbers in the assertions based on this value
+		int n = 17;		
 		questions = getQuestions(n);
 		
 		when(questionRepo.count()).thenReturn((long)n);
@@ -379,13 +379,14 @@ public class QuestionServiceImplTest {
 		
 		outputDTOs.clear();
 		
+		
 		try {
-			outputDTOs = qsImpl.getQuestions(3, 10);
+			outputDTOs = qsImpl.getQuestions(3, 10);	
 		} catch (GetQuestionException e) {
 			fail("getQuestions failed");
 		}
 		
-		assertThat(outputDTOs.size(), equalTo(0));
+		assertThat(outputDTOs.size(), equalTo(0));		//request out of range should return an empty array
 		
 		outputDTOs.clear();
 		
