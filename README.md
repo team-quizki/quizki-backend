@@ -32,7 +32,7 @@ You will need to clone this repository.
 
 ### Initializing the Database
 You will only need to do this the first time you run the backend.
-  1. Initialize a user. `$ mysql -u root -p < ./src/main/resources/META-INF/sql/init_quizki2_user.sql`
+  1. Initialize a user. You may or may not need `sudo`. `$ [sudo] mysql -u root -p < ./src/main/resources/META-INF/sql/init_quizki2_user.sql`
   2. Populate the database. `$ mysql -u quizki2 -p < ./src/main/resources/META-INF/sql/populate_quizki2_db_20180619.sql` The password for the `quizki2` user in mysql is `quizki2`.
 
 You can check that it is working by entering the database. `$ mysql -u quizki2 -p quizki2_db`
