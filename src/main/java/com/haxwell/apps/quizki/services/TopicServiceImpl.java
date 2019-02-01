@@ -43,7 +43,7 @@ public class TopicServiceImpl implements TopicService {
 
 		List<Topic> topics;
 
-		if (word == null) {
+		if (word == null || word == "") {
 			topics = tr.findAll(PageRequest.of(page-1, size)).getContent();
 		} else {
 			topics = tr.findByText(word, PageRequest.of(page-1, size));
