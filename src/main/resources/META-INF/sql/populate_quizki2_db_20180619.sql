@@ -155,7 +155,7 @@ CREATE TABLE `question_topic` (
    FOREIGN KEY (`question_id`) REFERENCES `question` (`id`),
   CONSTRAINT `question_topic_ibfk_2`
    FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -205,7 +205,7 @@ CREATE TABLE `question_reference` (
    FOREIGN KEY (`question_id`) REFERENCES `question` (`id`),
   CONSTRAINT `question_reference_ibfk_2`
    FOREIGN KEY (`reference_id`) REFERENCES `reference` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
