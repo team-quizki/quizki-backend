@@ -1,5 +1,7 @@
 package com.haxwell.apps.quizki.controllers;
 
+import java.util.ArrayList;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,6 +43,14 @@ public class QuestionController {
 	@ResponseBody
 	public CreatedQuestionDTO getQuestionById(@PathVariable String id) throws GetQuestionException {
 		return qs.getQuestionById(id);
+	}
+	
+	@GetMapping
+	@ResponseBody
+	public ArrayList<CreatedQuestionDTO> getQuestions(
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size) throws GetQuestionException {
+		return qs.getQuestions(page, size);
 	}
 	
 }

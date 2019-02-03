@@ -1,11 +1,16 @@
 package com.haxwell.apps.quizki.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
@@ -38,11 +43,13 @@ public class QuestionServiceImpl implements QuestionService {
 	private Set<String> topicStrings = new HashSet<String>();
 	
 	private CreatedQuestionDTO outputDTO;
+	
 	private Set<CreateChoiceDTO> choiceDTOs;
 	
 	private Question question;
 	private Question savedQuestion;
 	private Optional<Question> outQuestion;
+	
 	
 	@Autowired
 	private QuestionRepository questionRepo;
@@ -244,6 +251,50 @@ public class QuestionServiceImpl implements QuestionService {
 		}
 		
 		return outputDTO;
+		
+	}
+	
+	
+	public ArrayList<CreatedQuestionDTO> getQuestions(int page, int size) throws GetQuestionException {
+	
+		Pageable pageable = null;
+		
+		ArrayList<CreatedQuestionDTO> outputDTOs = new ArrayList<CreatedQuestionDTO>();
+		
+		long qs = questionRepo.count();
+		
+		if((page - 1) * size <= qs) {
+			
+			pageable = PageRequest.of((page - 1), size);
+			
+		} else {
+			return outputDTOs;		//return the empty array if no data exists
+		}
+			
+		Page<Question> questions = questionRepo.findAll(pageable);
+		
+		outputDTOs.clear();	//TODO make local
+		
+		
+		questions.forEach(q -> {		
+			
+			outputDTO = new CreatedQuestionDTO();
+			
+			outputDTO.setId(q.getId());
+			outputDTO.setUserId(q.getUser().getId());
+			outputDTO.setDescription(q.getDescription());
+			outputDTO.setText(q.getText());
+			outputDTO.setDifficulty(q.getDifficulty());
+			outputDTO.setQuestionType(q.getQuestionType());
+			outputDTO.setTopics(q.getTopics());
+			outputDTO.setReferences(q.getReferences());
+			outputDTO.setChoices(q.getChoices());
+			
+			outputDTOs.add(outputDTO);
+		}); 
+
+
+		return outputDTOs;
 		
 	}
 	

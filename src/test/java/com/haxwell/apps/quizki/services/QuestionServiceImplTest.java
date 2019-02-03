@@ -5,13 +5,19 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.exceptions.base.MockitoException;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.util.HtmlUtils;
 
 import static org.mockito.Mockito.*;
 import static org.mockito.BDDMockito.any;
 //Note this import added to avoid "any" naming collision in Mockito and Hamcrest Matchers see https://github.com/mockito/mockito/issues/1311
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -46,12 +52,15 @@ public class QuestionServiceImplTest {
 	CreateQuestionDTO inputDTO;
 	CreatedQuestionDTO outputDTO;
 	
+	private ArrayList<CreatedQuestionDTO> outputDTOs;
+	
 	Topic topic1;
 	Reference reference1;
 	Choice choice;
 	static User user;
 	static UserRole uRole;
 	static Question question;
+	List<Question> questions;
 	
 	static String role1 = "QUIZKI_USER_ROLE_ADMIN";
 	static String role2 = "QUIZKI_USER_ROLE_USER";
@@ -145,6 +154,58 @@ public class QuestionServiceImplTest {
 		
 	}
 	
+	private static String appendInt(String s, int x) {
+		return s + Integer.toString(x);
+	}
+	
+	private List<Question> getQuestions(int n){
+		
+		questions = new ArrayList<Question>();
+		
+		uRole = new UserRole(role1);
+		uRole.setId(1);
+		
+		String name = "Johnathan";
+		String password = "password";
+		String fullname = "Johnathan James";
+		String email = "jjames@somewhere.com";
+		String demographic = "default";
+		user = new User(uRole, name, password, fullname, email, demographic);
+		user.setId(userId);
+		
+		topics.add(new Topic(1l, topicStr1));
+		references.add(new Reference(1l, refStr1));
+		choices.add(new Choice(1l, choiceDTO1T.getText(), 1, choiceDTO1T.getIsCorrect()));
+		
+		for(int i = 1; i <= n; ++i) {
+			questions.add(new Question((long) i, user, appendInt(description, i), appendInt(text, i), difficulty, type,
+					references, topics, choices));
+		}
+		return questions;
+	}
+	
+	private Page<Question> getPageQuestions(List<Question> ql, Pageable pgr ) {
+		
+		int pgn = pgr.getPageNumber();
+		int pgsz = pgr.getPageSize();
+		
+		int strt = pgn * pgsz;
+		int fin = strt + pgsz - 1;
+		
+		fin = Math.min(fin,ql.size() - 1);
+		
+		
+		List<Question> subql = new ArrayList<>();
+		
+		for(int i = strt; i <= fin; ++i) {
+			subql.add(ql.get(i));
+		}
+
+		Page<Question> pageQuestions = new PageImpl<Question>(subql, pgr, pgr.getPageSize());
+		
+		return pageQuestions;
+		
+	}
 	
 	
 	
@@ -272,6 +333,73 @@ public class QuestionServiceImplTest {
 		}
 		
 		assertThat(outputDTO.getId(), equalTo(1l));
+		
+	}
+	
+	@Test
+	public void getQuestionsTest() {
+		
+		
+		/*
+		 * Stated requirements
+		 * URL: /api/question?page=1&size=10
+		 * URL: /api/question?page=1 (size defaults to 10)
+		 * URL: /api/question?size=10 (page defaults to 1)
+		 * URL: /api/question (page and size are default)
+		 * 
+		 * parameters are passed to getQuestions() as received by the controller with defaults
+		 */
+		
+		int n = 17;		
+		questions = getQuestions(n);
+		
+		when(questionRepo.count()).thenReturn((long)n);
+		
+		when(questionRepo.findAll(any(Pageable.class))).thenAnswer(new Answer<Page<Question>>() {
+			 
+            public Page<Question> answer(InvocationOnMock invocation) throws Throwable {
+                
+            	
+            	Pageable pageRequest = invocation.getArgument(0);
+            	
+                return getPageQuestions(questions, pageRequest);
+            }
+        });
+		
+		
+		try {
+			outputDTOs = qsImpl.getQuestions(1, 10);
+		} catch (GetQuestionException e) {
+			fail("getQuestions failed");
+		}
+
+		assertThat(outputDTOs.size(), equalTo(10));
+		assertThat(outputDTOs.get(0).getId(), equalTo(1L));
+		assertThat(outputDTOs.get(9).getId(), equalTo(10L));
+		
+		outputDTOs.clear();
+		
+		
+		try {
+			outputDTOs = qsImpl.getQuestions(3, 10);	
+		} catch (GetQuestionException e) {
+			fail("getQuestions failed");
+		}
+		
+		assertThat(outputDTOs.size(), equalTo(0));		//request out of range should return an empty array
+		
+		outputDTOs.clear();
+		
+		try {
+			outputDTOs = qsImpl.getQuestions(2, 10);
+		} catch (GetQuestionException e) {
+			fail("getQuestions failed");
+		}
+		
+		assertThat(outputDTOs.size(), equalTo(7));
+		assertThat(outputDTOs.get(0).getId(), equalTo(11L));
+		
+		
 		
 	}
 
