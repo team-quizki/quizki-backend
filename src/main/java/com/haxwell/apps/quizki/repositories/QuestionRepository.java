@@ -1,6 +1,7 @@
 package com.haxwell.apps.quizki.repositories;
 
 import java.awt.print.Pageable;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.domain.Page;
@@ -14,5 +15,6 @@ import com.haxwell.apps.quizki.entities.Question;
 @Repository
 public interface QuestionRepository extends PagingAndSortingRepository<Question, Long> {
 	Set<Question> findByUserId(long userId);
+	List<Question> findAll(Pageable pageRequest);
 
 }

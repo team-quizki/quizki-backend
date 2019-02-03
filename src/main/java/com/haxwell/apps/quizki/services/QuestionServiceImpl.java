@@ -271,7 +271,7 @@ public class QuestionServiceImpl implements QuestionService {
 			return outputDTOs;		//return the empty array if no data exists
 		}
 			
-		Page<Question> questions = questionRepo.findAll(pageable);
+		List<Question> questions = questionRepo.findAll(pageable);
 		
 		outputDTOs.clear();	//TODO make local
 		
