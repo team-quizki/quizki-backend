@@ -19,8 +19,6 @@ public class TopicServiceImpl implements TopicService {
 	@Autowired
 	private TopicRepository tr;
 
-	private Topic outTopic;
-	
 	@Override
 	public String createNew(List<Topic> list) {
 		JSONArray rtn = new JSONArray(); 
