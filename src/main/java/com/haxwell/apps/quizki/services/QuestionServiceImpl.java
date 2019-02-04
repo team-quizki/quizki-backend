@@ -271,9 +271,7 @@ public class QuestionServiceImpl implements QuestionService {
 			return outputDTOs;		//return the empty array if no data exists
 		}
 			
-		List<Question> questions = questionRepo.findAll(pageable);
-		
-		outputDTOs.clear();	//TODO make local
+		List<Question> questions = questionRepo.findAll(pageable).getContent();
 		
 		
 		questions.forEach(q -> {		

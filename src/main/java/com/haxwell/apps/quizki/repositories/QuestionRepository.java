@@ -15,6 +15,7 @@ import com.haxwell.apps.quizki.entities.Question;
 @Repository
 public interface QuestionRepository extends PagingAndSortingRepository<Question, Long> {
 	Set<Question> findByUserId(long userId);
-	List<Question> findAll(Pageable pageRequest);
+	
+	
 
 }
