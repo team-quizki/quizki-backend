@@ -3,3 +3,5 @@
 .classpath
 .settings/
 /bin/
+liquibase.properties
+.java-version
