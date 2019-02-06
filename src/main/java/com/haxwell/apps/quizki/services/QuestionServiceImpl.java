@@ -255,13 +255,13 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 	
 	
-	public ArrayList<CreatedQuestionDTO> getQuestions(int page, int size) throws GetQuestionException {
+	public ArrayList<CreatedQuestionDTO> getQuestions(Pageable pageable) throws GetQuestionException {
 	
-		if(!((page - 1) * size <= questionRepo.count())) {
+		if((pageable.getPageNumber() * pageable.getPageSize()) >= questionRepo.count()) {
 			return new ArrayList<CreatedQuestionDTO>(); 
 		}
 			
-		List<Question> questions = questionRepo.findAll(PageRequest.of((page - 1), size)).getContent();
+		List<Question> questions = questionRepo.findAll(pageable).getContent();
 
 		ArrayList<CreatedQuestionDTO> outputDTOs = new ArrayList<CreatedQuestionDTO>();
 		

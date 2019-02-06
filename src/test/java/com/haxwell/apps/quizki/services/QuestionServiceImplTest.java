@@ -350,25 +350,31 @@ public class QuestionServiceImplTest {
 		 * parameters are passed to getQuestions() as received by the controller with defaults
 		 */
 		
-		int n = 17;		
-		questions = getQuestions(n);
+		int SEVENTEEN = 17;
+		questions = getQuestions(SEVENTEEN);
 		
-		when(questionRepo.count()).thenReturn((long)n);
+		when(questionRepo.count()).thenReturn((long)SEVENTEEN);
 		
-		when(questionRepo.findAll(any(Pageable.class))).thenAnswer(new Answer<Page<Question>>() {
-			 
-            public Page<Question> answer(InvocationOnMock invocation) throws Throwable {
-                
-            	
-            	Pageable pageRequest = invocation.getArgument(0);
-            	
-                return getPageQuestions(questions, pageRequest);
-            }
-        });
-		
+		Page<Question> pageOne = mock(Page.class);
+		PageRequest pageableOne = PageRequest.of(0,10);
+
+		when(questionRepo.findAll(pageableOne)).thenReturn(pageOne);
+		when(pageOne.getContent()).thenReturn(questions.subList(0, 10));
+
+		Page<Question> pageTwo = mock(Page.class);
+		PageRequest pageableTwo = PageRequest.of(1,10);
+
+		when(questionRepo.findAll(pageableTwo)).thenReturn(pageTwo);
+		when(pageTwo.getContent()).thenReturn(questions.subList(10, SEVENTEEN));
+
+		Page<Question> pageThree = mock(Page.class);
+		PageRequest pageableThree = PageRequest.of(2,10);
+
+		when(questionRepo.findAll(pageableThree)).thenReturn(pageThree);
+		when(pageThree.getContent()).thenReturn(new ArrayList<Question>());
 		
 		try {
-			outputDTOs = qsImpl.getQuestions(1, 10);
+			outputDTOs = qsImpl.getQuestions(pageableOne);
 		} catch (GetQuestionException e) {
 			fail("getQuestions failed");
 		}
@@ -381,7 +387,7 @@ public class QuestionServiceImplTest {
 		
 		
 		try {
-			outputDTOs = qsImpl.getQuestions(3, 10);	
+			outputDTOs = qsImpl.getQuestions(pageableThree);
 		} catch (GetQuestionException e) {
 			fail("getQuestions failed");
 		}
@@ -391,7 +397,7 @@ public class QuestionServiceImplTest {
 		outputDTOs.clear();
 		
 		try {
-			outputDTOs = qsImpl.getQuestions(2, 10);
+			outputDTOs = qsImpl.getQuestions(pageableTwo);
 		} catch (GetQuestionException e) {
 			fail("getQuestions failed");
 		}

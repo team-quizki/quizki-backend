@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,8 @@ import com.haxwell.apps.quizki.dtos.CreatedQuestionDTO;
 import com.haxwell.apps.quizki.exceptions.CreateQuestionDTOException;
 import com.haxwell.apps.quizki.exceptions.GetQuestionException;
 import com.haxwell.apps.quizki.services.QuestionService;
+
+import org.springframework.data.domain.Pageable;
 
 @CrossOrigin (origins = "http://localhost:4200")
 @RestController
@@ -48,9 +51,10 @@ public class QuestionController {
 	@GetMapping
 	@ResponseBody
 	public ArrayList<CreatedQuestionDTO> getQuestions(
-			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "page", defaultValue = "0") int zeroBasedPageNumber,
 			@RequestParam(value = "size", defaultValue = "10") int size) throws GetQuestionException {
-		return qs.getQuestions(page, size);
+		Pageable pageable = PageRequest.of(zeroBasedPageNumber, size);
+		return qs.getQuestions(pageable);
 	}
 	
 }
