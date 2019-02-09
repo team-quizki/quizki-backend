@@ -1,7 +1,24 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
-    <changeSet author="jrdissermac (generated)" id="1549400195839-1">
+    <changeSet author="jrdissermac" id="1549400195839-21">
+        <dropAllForeignKeyConstraints baseTableName="choice"/>
+        <dropAllForeignKeyConstraints baseTableName="question"/>
+        <dropAllForeignKeyConstraints baseTableName="question_reference"/>
+        <dropAllForeignKeyConstraints baseTableName="question_topic"/>
+        <dropAllForeignKeyConstraints baseTableName="user"/>
         <dropTable tableName="choice"/>
+        <dropTable tableName="question"/>
+        <dropTable tableName="question_reference"/>
+        <dropTable tableName="question_topic"/>
+        <dropTable tableName="reference"/>
+        <dropTable tableName="topic"/>
+        <dropTable tableName="user"/>
+        <dropTable tableName="user_role"/>
+
+    </changeSet>
+
+    <changeSet author="jrdissermac (generated)" id="1549400195839-1">
+      <validCheckSum>8:06b14187d4cad3fe89471d955a4961d8</validCheckSum>
         <createTable tableName="choice">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -21,7 +38,7 @@
         </createTable>
     </changeSet>
     <changeSet author="jrdissermac (generated)" id="1549400195839-2">
-        <dropTable tableName="question"/>
+
         <createTable tableName="question">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -44,7 +61,7 @@
         </createTable>
     </changeSet>
     <changeSet author="jrdissermac (generated)" id="1549400195839-3">
-        <dropTable tableName="question_reference"/>
+
         <createTable tableName="question_reference">
             <column name="question_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -55,7 +72,7 @@
         </createTable>
     </changeSet>
     <changeSet author="jrdissermac (generated)" id="1549400195839-4">
-        <dropTable tableName="question_topic"/>
+
         <createTable tableName="question_topic">
             <column name="question_id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -66,7 +83,7 @@
         </createTable>
     </changeSet>
     <changeSet author="jrdissermac (generated)" id="1549400195839-5">
-        <dropTable tableName="reference"/>
+
         <createTable tableName="reference">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -75,7 +92,7 @@
         </createTable>
     </changeSet>
     <changeSet author="jrdissermac (generated)" id="1549400195839-6">
-        <dropTable tableName="topic"/>
+
         <createTable tableName="topic">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -84,7 +101,7 @@
         </createTable>
     </changeSet>
     <changeSet author="jrdissermac (generated)" id="1549400195839-7">
-        <dropTable tableName="user"/>
+
         <createTable tableName="user">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -113,7 +130,7 @@
         </createTable>
     </changeSet>
     <changeSet author="jrdissermac (generated)" id="1549400195839-8">
-        <dropTable tableName="user_role"/>
+
         <createTable tableName="user_role">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
