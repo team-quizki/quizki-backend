@@ -1,7 +1,7 @@
 /target/
+/bin/
+.settings/
 .project
 .classpath
-.settings/
-/bin/
-liquibase.properties
 .java-version
+liquibase.properties

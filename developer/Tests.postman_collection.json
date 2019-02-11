@@ -28,7 +28,10 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:8080/api/verifyCredentials",
 							"protocol": "http",
@@ -872,7 +875,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\":\"\",\n\t\"password\":\"mypassword\",\n\t\"name\":\"jdisser\",\n\t\"enabled\":\"1\",\n\t\"role\":{\"id\":\"1\",\"name\": \"QUIZKI_USER_ROLE_ADMIN\"},\n\t\"email\":\"jdisser@somewhere.com\",\n\t\"demographic\":\"independent\",\n\t\"fullname\":\"Jim Disser\"\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/roles",
@@ -1506,6 +1509,9 @@
 		},
 		{
 			"name": "Verify plaintext Credentials ",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"auth": {
 					"type": "basic",
@@ -1538,7 +1544,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/question/20?",
+					"raw": "http://localhost:8080/api/verifyCredentials?",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1546,8 +1552,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"question",
-						"20"
+						"verifyCredentials"
 					],
 					"query": [
 						{
@@ -1665,6 +1670,248 @@
 						{
 							"key": "id",
 							"value": "21",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Question page 1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "johnathan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"userId\": 1,\n\"text\": \"To be or not to be, that is the question!\",\n\"description\": \"Testing create question endpoint\",\n\"type\": 1,\n\"topics\": [\"Shakespeare\", \"Existentialism\", \"Suicide\"],\n\"references\": [\"http://www.somesite.com/hamlet\", \"a plain text reference\"],\n\"difficulty\": 1,\n\"choices\": [{\"text\":\"To Be\", \"isCorrect\":true}, {\"text\":\"Not to be\", \"isCorrect\":false}]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/question?page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"question"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Question page 1 size 2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "johnathan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"userId\": 1,\n\"text\": \"To be or not to be, that is the question!\",\n\"description\": \"Testing create question endpoint\",\n\"type\": 1,\n\"topics\": [\"Shakespeare\", \"Existentialism\", \"Suicide\"],\n\"references\": [\"http://www.somesite.com/hamlet\", \"a plain text reference\"],\n\"difficulty\": 1,\n\"choices\": [{\"text\":\"To Be\", \"isCorrect\":true}, {\"text\":\"Not to be\", \"isCorrect\":false}]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/question?page=1&size=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"question"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET question page 2 size 2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "johnathan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"userId\": 1,\n\"text\": \"To be or not to be, that is the question!\",\n\"description\": \"Testing create question endpoint\",\n\"type\": 1,\n\"topics\": [\"Shakespeare\", \"Existentialism\", \"Suicide\"],\n\"references\": [\"http://www.somesite.com/hamlet\", \"a plain text reference\"],\n\"difficulty\": 1,\n\"choices\": [{\"text\":\"To Be\", \"isCorrect\":true}, {\"text\":\"Not to be\", \"isCorrect\":false}]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/question?page=2&size=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"question"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "size",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Question no parameters",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "johnathan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"userId\": 1,\n\"text\": \"To be or not to be, that is the question!\",\n\"description\": \"Testing create question endpoint\",\n\"type\": 1,\n\"topics\": [\"Shakespeare\", \"Existentialism\", \"Suicide\"],\n\"references\": [\"http://www.somesite.com/hamlet\", \"a plain text reference\"],\n\"difficulty\": 1,\n\"choices\": [{\"text\":\"To Be\", \"isCorrect\":true}, {\"text\":\"Not to be\", \"isCorrect\":false}]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/question?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"question"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "size",
+							"value": "2",
 							"disabled": true
 						}
 					]
