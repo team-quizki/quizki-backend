@@ -1,0 +1,189 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="jrdissermac" id="1549400195839-21">
+        <dropAllForeignKeyConstraints baseTableName="choice"/>
+        <dropAllForeignKeyConstraints baseTableName="question"/>
+        <dropAllForeignKeyConstraints baseTableName="question_reference"/>
+        <dropAllForeignKeyConstraints baseTableName="question_topic"/>
+        <dropAllForeignKeyConstraints baseTableName="user"/>
+        <dropTable tableName="choice"/>
+        <dropTable tableName="question"/>
+        <dropTable tableName="question_reference"/>
+        <dropTable tableName="question_topic"/>
+        <dropTable tableName="reference"/>
+        <dropTable tableName="topic"/>
+        <dropTable tableName="user"/>
+        <dropTable tableName="user_role"/>
+
+    </changeSet>
+
+    <changeSet author="jrdissermac (generated)" id="1549400195839-1">
+      <validCheckSum>8:06b14187d4cad3fe89471d955a4961d8</validCheckSum>
+        <createTable tableName="choice">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="text" type="VARCHAR(10000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sequence" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_correct" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="question_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-2">
+
+        <createTable tableName="question">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="text" type="VARCHAR(10000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(125)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="difficulty" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="question_type" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-3">
+
+        <createTable tableName="question_reference">
+            <column name="question_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="reference_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-4">
+
+        <createTable tableName="question_topic">
+            <column name="question_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="topic_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-5">
+
+        <createTable tableName="reference">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="text" type="VARCHAR(125)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-6">
+
+        <createTable tableName="topic">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="text" type="VARCHAR(125)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-7">
+
+        <createTable tableName="user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(125)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(125)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="1" name="enabled" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fullname" type="VARCHAR(125)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(125)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="demographic" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-8">
+
+        <createTable tableName="user_role">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(1000)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-9">
+        <createIndex indexName="fk_question_choice_idx" tableName="choice">
+            <column name="question_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-10">
+        <createIndex indexName="fk_question_user_idx" tableName="question">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-11">
+        <createIndex indexName="fk_user_user_role_idx" tableName="user">
+            <column name="user_role_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-12">
+        <createIndex indexName="reference_id" tableName="question_reference">
+            <column name="reference_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-13">
+        <createIndex indexName="topic_id" tableName="question_topic">
+            <column name="topic_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-14">
+        <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="choice" constraintName="fk_question_choice" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="question" validate="true"/>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-15">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="question" constraintName="fk_question_user" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-16">
+        <addForeignKeyConstraint baseColumnNames="user_role_id" baseTableName="user" constraintName="fk_user_user_role" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="user_role" validate="true"/>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-17">
+        <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="question_reference" constraintName="question_reference_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="question" validate="true"/>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-18">
+        <addForeignKeyConstraint baseColumnNames="reference_id" baseTableName="question_reference" constraintName="question_reference_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="reference" validate="true"/>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-19">
+        <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="question_topic" constraintName="question_topic_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="question" validate="true"/>
+    </changeSet>
+    <changeSet author="jrdissermac (generated)" id="1549400195839-20">
+        <addForeignKeyConstraint baseColumnNames="topic_id" baseTableName="question_topic" constraintName="question_topic_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="topic" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
