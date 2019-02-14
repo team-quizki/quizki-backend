@@ -3,46 +3,34 @@ package com.haxwell.apps.quizki.services;
 
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.exceptions.base.MockitoException;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.springframework.web.util.HtmlUtils;
+import org.mockito.InjectMocks;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
+//import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.BDDMockito.any;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.runner.RunWith;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.haxwell.apps.quizki.entities.Topic;
 import com.haxwell.apps.quizki.repositories.TopicRepository;
+
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
+import com.haxwell.apps.quizki.services.TopicService;
 
-
-@RunWith(SpringRunner.class)
 public class TopicServiceImplTest {
-
-	@TestConfiguration
-	static class TopicServiceTestContextConfiguration {
-		@Bean
-		public TopicService topicService() {
-			return new TopicServiceImpl();
-		}
-	}
+	
+	TopicService topicService;
 	
 	String TEXT_TOPIC_1 = "topic1";
 	String TEXT_TOPIC_2 = "topic2";
@@ -50,12 +38,17 @@ public class TopicServiceImplTest {
 	Long ID_TOPIC_1 = 1273L;
 	Long ID_TOPIC_2 = 1274L;
 	
-	@Autowired
-	private TopicService topicService;
-	
-	@MockBean
+	@Mock
 	private TopicRepository topicRepository;
+
+	private TopicServiceImpl topicservice;
 	
+	@Before
+	public void setup() throws Exception {
+		MockitoAnnotations.initMocks(this);		
+		topicService = new TopicServiceImpl(topicRepository);
+	}
+
 	@Test
 	public void test_createNew_whenAListOfTopicsThatAlreadyExistIsPassedIn() {
 		// given
@@ -127,41 +120,36 @@ public class TopicServiceImplTest {
 		list.add(new Topic(TEXT_TOPIC_1));
 		list.add(new Topic(TEXT_TOPIC_2));
 
-		Topic fullTopic1 = new Topic(TEXT_TOPIC_1);
-		fullTopic1.setId(ID_TOPIC_1);
-
-
-		when(
-			topicRepository.findByText(q, pageRequest))
-		.thenReturn(list);
+		when(topicRepository.findByText(any(String.class), any(PageRequest.class))).thenReturn(list);
 
 		List<Topic> listResponse = topicService.getTopicByText(q, page, size);
 
+		assertThat(listResponse.size(), equalTo(2));
+		
 		verify(topicRepository, times(1)).findByText(q, PageRequest.of(page-1,size));
-		verify(topicRepository, times(0)).findAll(PageRequest.of(page-1,size));
-		//assertThat(listResponse.size(), equalTo(list.size()));
 	}
 
-	@Ignore("Null pointer exception with String q")
 	@Test
-	public void test_getTopic_whenNoQParamArePassedIn() {
-		String q = "";
+	public void test_getAllTopics_whenCorrectParamsArePassedIn() {
+
 		int page = 1;
 		int size = 10;
-		Page<Topic> pageTopic = mock(Page.class);
-		Pageable pageRequest = PageRequest.of(page,size);
+		
+		List<Topic> list = new ArrayList<>();
+		
+		Page<Topic> pageOne = mock(Page.class);
 
-		when(
-			topicRepository.findAll(pageRequest))
-		.thenReturn(pageTopic);
+		list.add(new Topic(TEXT_TOPIC_1));
+		list.add(new Topic(TEXT_TOPIC_2));
 
-		List<Topic> listResponse = topicService.getTopicByText("", page, size);
+		when(topicRepository.findAll(any(PageRequest.class))).thenReturn(pageOne);
+		when(pageOne.getContent()).thenReturn(list);
 
-		verify(topicRepository, times(0)).findByText(q, PageRequest.of(page-1,size));
+		List<Topic> listResponse = topicService.getTopicByText(null, page, size);
+		
+		assertThat(listResponse.size(), equalTo(2));
+
 		verify(topicRepository, times(1)).findAll(PageRequest.of(page-1,size));
-
 	}
-
-	// TODO: Test the case when a list of topics is passed in, and only one of them does not yet exist.
 
 }
