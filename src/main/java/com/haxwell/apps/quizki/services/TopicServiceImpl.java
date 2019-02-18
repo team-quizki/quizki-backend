@@ -17,8 +17,6 @@ public class TopicServiceImpl implements TopicService {
 	@Autowired
 	private TopicRepository tr;
 
-
-	
 	public TopicServiceImpl(TopicRepository tr) {
 		this.tr = tr;
 	}
@@ -40,6 +38,7 @@ public class TopicServiceImpl implements TopicService {
 
 		return rtn.toJSONString();
 	}
+
 	@Override
 	public List<Topic> getTopicByText(String word, int page, int size) {
 

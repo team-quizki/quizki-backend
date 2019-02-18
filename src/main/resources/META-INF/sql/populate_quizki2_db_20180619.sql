@@ -99,7 +99,7 @@ CREATE TABLE `choice` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `text` varchar(10000) NOT NULL,
   `sequence` bigint(20) NOT NULL,
-  `is_correct` bit NOT NULL,
+  `is_correct` tinyint(1) NOT NULL,
   `question_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_question_choice_idx` (`question_id`),
@@ -155,7 +155,7 @@ CREATE TABLE `question_topic` (
    FOREIGN KEY (`question_id`) REFERENCES `question` (`id`),
   CONSTRAINT `question_topic_ibfk_2`
    FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -205,7 +205,7 @@ CREATE TABLE `question_reference` (
    FOREIGN KEY (`question_id`) REFERENCES `question` (`id`),
   CONSTRAINT `question_reference_ibfk_2`
    FOREIGN KEY (`reference_id`) REFERENCES `reference` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
