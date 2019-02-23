@@ -1,10 +1,8 @@
 package com.haxwell.apps.quizki.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +17,10 @@ public class TopicServiceImpl implements TopicService {
 	@Autowired
 	private TopicRepository tr;
 
+	public TopicServiceImpl(TopicRepository tr) {
+		this.tr = tr;
+	}
+	
 	@Override
 	public String createNew(List<Topic> list) {
 		JSONArray rtn = new JSONArray(); 
@@ -36,6 +38,7 @@ public class TopicServiceImpl implements TopicService {
 
 		return rtn.toJSONString();
 	}
+
 	@Override
 	public List<Topic> getTopicByText(String word, int page, int size) {
 
