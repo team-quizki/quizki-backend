@@ -42,7 +42,7 @@ You will need to fork the [team-quizki/quizki-backend repository](https://github
     `$ cd quizki-backend`
     
 - Configure your local quizki-backend to use remote upstream. 
-    `$ git remote add upstream hhttps://github.com/team-quizki/quizki-backend`  
+    `$ git remote add upstream https://github.com/team-quizki/quizki-backend`  
     
 - Check remote origin and upstream looks similar to the following.
     `$ git remote -v`
@@ -68,7 +68,7 @@ You will only need to do this the first time you run the backend.
   1. Initialize a user. You may or may not need `sudo`. `$ [sudo] mysql -u root -p < ./src/main/resources/META-INF/sql/init_quizki2_user.sql`
   2. Populate the database. The password for the `quizki2` user in mysql is `quizki2.` `$ mysql -u quizki2 -p < ./src/main/resources/META-INF/sql/populate_quizki2_db_20190201.sql` 
 
-You can check that it is working by entering the database. `$ mysql -u quizki2 -p quizki2_db`
+You can check that it is working by entering the database. `$ mysql -u quizki2 -p quizki2_db --execute="show tables;"` You should see a list of 'Tables in quizki2 db'.
 
 ## Development Server
 To get the backend running on your local machine, you will need a MySQL daemon running and you will need to compile and run the application. Follow these steps each time you want to run the backend.
